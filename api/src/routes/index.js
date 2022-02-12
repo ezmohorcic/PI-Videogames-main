@@ -13,18 +13,18 @@ async function reSize(page,out,apiRaw,dbRaw,name)
     if(out.length==15){return out}
     else
     {
-        rawOut=[...dbRaw,...apiRaw]; //busco el array original de db+api.page1
-        var apiPage=2;
-        var lastPage=false;
+        rawOut=[...dbRaw,...apiRaw]; //genero el array original de db+api.page1 sin cortar
+        var apiPage=2;  //la siguiente pagina es la 2, arranco de ahi
+        var lastPage=false; //flag de ultima pagina de la api (para caso limite)
         while(rawOut.length<=((page+1)*15) && lastPage==false) //mientras que el array total sea menor que el numero del ultimo item de la pag ((page+1)*15)
         {
-            let newPage=[];
-            if(name){newPage= await fetch(`https://api.rawg.io/api/games?search=${name}&key=${api_key}&page=${apiPage}`)} //fetchea de la siguiente pagina 
-            else{newPage= await fetch(`https://api.rawg.io/api/games?key=${api_key}&page=${apiPage}`)} //fetchea de la siguiente pagina 
-            newPage= await newPage.json();
-            newPage= newPage.results;
-            if(!newPage){lastPage=true}
-            else
+            let newPage=[]; //nuevo array para agregar a rawOut
+            if(name){newPage= await fetch(`https://api.rawg.io/api/games?search=${name}&key=${api_key}&page=${apiPage}`)} //fetchea de la siguiente pagina con search
+            else{newPage= await fetch(`https://api.rawg.io/api/games?key=${api_key}&page=${apiPage}`)} //fetchea de la siguiente pagina sin search
+            newPage= await newPage.json(); //json..
+            newPage= newPage.results; //aca estan los juegos 
+            if(!newPage){lastPage=true} //Me fijo si ya no hay mas items en la api, si no hay results, no hay mas paginas
+            else    //si no es asi
             {
                 rawOut=[...rawOut,...newPage]; //agrega a rawOut
                 apiPage++; //aumento para el llamado a la siguiente pagina
@@ -44,18 +44,18 @@ async function getVideogames(name,page=0)
 
     if(name) //--Caso:  /videogames?name="..." --
     {
-        apiRaw=await fetch(`https://api.rawg.io/api/games?search=${name}&key=${api_key}`) //fetcheo a api
-        apiRaw= await apiRaw.json();
-        apiRaw=apiRaw.results
+        apiRaw=await fetch(`https://api.rawg.io/api/games?search=${name}&key=${api_key}`) //fetcheo a api con search
+        apiRaw= await apiRaw.json(); //json...
+        apiRaw=apiRaw.results // el .results es el array de videojuegos
         dbRaw=dbRaw.filter(vdg => vdg.name.toLowerCase().includes(name.toLowerCase()));//filtro por nombre en base de datos
         apiRaw=apiRaw .filter(vdg => vdg.name.toLowerCase().includes(name.toLowerCase()));//filtro por nombre en api
         //console.log(apiRaw);
     }
     else //--Caso: /videogames --
     {
-        apiRaw= await fetch(`https://api.rawg.io/api/games?key=${api_key}`)
-        apiRaw= await apiRaw.json();
-        apiRaw=apiRaw.results
+        apiRaw= await fetch(`https://api.rawg.io/api/games?key=${api_key}`) //fetcheo a api sin search
+        apiRaw= await apiRaw.json();    //json..
+        apiRaw=apiRaw.results   //el .results estan los videojuegos
     }
     let out = [...dbRaw,...apiRaw].slice(page*15,(page+1)*15);// || page=0 => 0*15 a (1*15)-1 == 0 a 14 || page=1 => 1*15 a ((1+1)*15)-1 == 15 a 29 || 
     out= await reSize(page,out,apiRaw,dbRaw,name); //lo mando aca para asegurarme que out sea 15, si es menos, fetchea las siguientes paginas de api y rellena 
@@ -64,35 +64,13 @@ async function getVideogames(name,page=0)
 
 async function getVideogameByID(idVideogame)
 {
-    if(typeof idVideogame =="number") //es de api
+    console.log(typeof idVideogame)
+    if(idVideogame.length<20) //es de api
     {
-        const resp = await fetch(`https://api.rawg.io/api/games/${idVideogame}?key=${YOUR_API_KEY}`);
+        const resp = await fetch(`https://api.rawg.io/api/games/${idVideogame}?key=${api_key}`);
         const raw=await resp.json();
-        const out= await raw.map((element,index)=>
-        {   
-            /*const genres=[];
-            const platforms=[];
-            for(var i=0;i<element.results[0].platforms;i++)
-            {
-                platforms=element.results[0].platforms[i].name;
-            }
-
-            for(var i=0;i<element.results[0].genres;i++)
-            {
-                genres=element.results[0].genres[i].name;
-            }*/
-            return{
-                ID:element.results.id,
-                name:element.results[0].name,
-                description:element.results[0].reviews_text_count,
-                releaseDate:element.results[0].released,
-                genres:element.results[0].genres,
-                rating:element.results[0].rating,
-                platforms:element.results[0].platforms,
-                background_image:element.results[0].background_image,
-            }
-        });
-        return out;
+        console.log(raw);
+        return raw;
     }
     else    //es de database, agregado a mano
     {
@@ -139,10 +117,7 @@ router.get('/videogames',async function(req,res)
         let videogames = await getVideogames(name,page);
         return res.json(videogames);
     }
-    catch(e)
-    {
-        console.log(e);
-    }
+    catch(e){console.log(e);}
 
 });
 
