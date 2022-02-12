@@ -67,16 +67,15 @@ async function getVideogameByID(idVideogame)
     console.log(typeof idVideogame)
     if(idVideogame.length<20) //es de api
     {
-        const resp = await fetch(`https://api.rawg.io/api/games/${idVideogame}?key=${api_key}`);
-        const raw=await resp.json();
-        console.log(raw);
-        return raw;
+        const resp = await fetch(`https://api.rawg.io/api/games/${idVideogame}?key=${api_key}`); //fetcheo el id
+        const raw=await resp.json(); //json...
+        return raw; 
     }
     else    //es de database, agregado a mano
     {
         try
         {
-            const videogames= await Videogame.findByPk(ID);
+            const videogames= await Videogame.findByPk(idVideogame); //findByPk == busqueda por primary key
             return videogames;
         }
         catch(e){()=>console.log("fuego en database de getVideogameByID:"+e)}
