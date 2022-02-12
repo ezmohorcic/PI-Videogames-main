@@ -2,9 +2,10 @@ const { Router } = require('express');
 const res = require('express/lib/response');
 const api_key='0d0560168f704159886770370807e888';
 const fetch = require("node-fetch");
+//const { Sequelize } = require('sequelize/types');
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
-const { Videogame,genre } = require('../db.js');
+const { Videogame,Genre } = require('../db.js');
 
 const router = Router();
 
@@ -78,7 +79,7 @@ async function getVideogameByID(idVideogame)
             const videogames= await Videogame.findByPk(idVideogame); //findByPk == busqueda por primary key
             return videogames;
         }
-        catch(e){()=>console.log("fuego en database de getVideogameByID:"+e)}
+        catch(e){()=>console.log("fuego en database de getVideogameByID: "+e)}
     }
 }
 
@@ -86,7 +87,26 @@ async function getGenres()
 {
     try
     {
-        const genres=await genre.findAll();
+        let genres=await Genre.findAll(); //busco los generos en database
+        console.log("line 91")
+        console.log(genres.length)
+        if (genres.length){
+            console.log("hay base de datos de genre")
+            return genres;} //si estan los generos en database
+
+        genres= await fetch(`https://api.rawg.io/api/genres?key=${api_key}`);
+        genres= await genres.json();
+        genres=genres.results;
+        console.log("no hay base de datos de genre")
+        //console.log(genres)
+        genres.forEach(async g => {
+            await Genre.findOrCreate({
+                where: {
+                    id: g.id,
+                    name: g.name,
+                }
+            })
+        })
         return genres;
     }
     catch(e){()=>console.log("fuego en getGenres")}
