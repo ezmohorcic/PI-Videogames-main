@@ -88,21 +88,17 @@ async function getGenres()
     try
     {
         let genres=await Genre.findAll(); //busco los generos en database
-        console.log("line 91")
-        console.log(genres.length)
-        if (genres.length){
-            console.log("hay base de datos de genre")
-            return genres;} //si estan los generos en database
-
-        genres= await fetch(`https://api.rawg.io/api/genres?key=${api_key}`);
+        if (genres.length){return genres;} //si estan los generos en database, los devuelve
+        
+        //--Esto se hace una vez y trae a database desde api los generos--
+        
+        genres= await fetch(`https://api.rawg.io/api/genres?key=${api_key}`); //fetcheo los generos
         genres= await genres.json();
         genres=genres.results;
-        console.log("no hay base de datos de genre")
-        //console.log(genres)
-        genres.forEach(async g => {
-            await Genre.findOrCreate({
-                where: {
-                    id: g.id,
+        genres.forEach(async g => { //Por cada genero, mando una peticion de creacion a database
+            await Genre.findOrCreate({ //si no encuentra, lo crea
+                where: { //manda los datos internos de cada genero
+                    id: g.id,  
                     name: g.name,
                 }
             })
