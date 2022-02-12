@@ -5,7 +5,8 @@ module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define('videogame', {
     ID:{
-      type: DataTypes.STRING,
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
       allowNull: false,
       primaryKey: true,
     },
@@ -14,23 +15,23 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     description:{
-      type:DataType.TEXT,
+      type:DataTypes.TEXT,
       allowNull:false
     },
     genres:{
-      type:DataType.ARRAY(sequelize.STRING),
+      type:DataTypes.STRING,
       allowNull:true
     },
     releaseDate:{
-      type:DataType.DATE,
+      type:DataTypes.DATE,
       allowNull:true
     },
     rating:{
-      type:DataType.NUMERIC,
+      type:DataTypes.NUMERIC,
       allowNull:true
     },
     platforms:{
-      type:DataType.ARRAY(sequelize.STRING),
+      type:DataTypes.STRING,
       allowNull:false
     },
   });

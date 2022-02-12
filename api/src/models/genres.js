@@ -13,21 +13,5 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    description:{
-      type:DataType.TEXT,
-      allowNull:false
-    },
-    releaseDate:{
-      type:DataType.STRING,
-      allowNull:true
-    },
-    rating:{
-      type:DataType.NUMBER,
-      allowNull:true
-    },
-    platforms:{
-      type:DataType.STRING,
-      allowNull:true
-    },
   });
 };
