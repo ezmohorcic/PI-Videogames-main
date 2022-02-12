@@ -39,8 +39,8 @@ async function reSize(page,out,apiRaw,dbRaw,name)
 async function getVideogames(name,page=0)
 {
     //--me traigo todo de la db y api--
-    //let dbRaw=Videogame.findAll(); //busco los juegos en db
-    let dbRaw=[];
+    let dbRaw = await Videogame.findAll(); //busco los juegos en db
+    //let dbRaw=[];
     var apiRaw =[];
 
     if(name) //--Caso:  /videogames?name="..." --
@@ -74,9 +74,12 @@ async function getVideogameByID(idVideogame)
     }
     else    //es de database, agregado a mano
     {
+        console.log("es una id de database");
         try
         {
+            
             const videogames= await Videogame.findByPk(idVideogame); //findByPk == busqueda por primary key
+            console.log(videogames);
             return videogames;
         }
         catch(e){()=>console.log("fuego en database de getVideogameByID: "+e)}
@@ -88,10 +91,12 @@ async function getGenres()
     try
     {
         let genres=await Genre.findAll(); //busco los generos en database
-        if (genres.length){return genres;} //si estan los generos en database, los devuelve
+        if (genres.length){
+            console.log("generos en base de datos")
+            return genres;} //si estan los generos en database, los devuelve
         
         //--Esto se hace una vez y trae a database desde api los generos--
-        
+        console.log("Trayendo generos desde api")
         genres= await fetch(`https://api.rawg.io/api/genres?key=${api_key}`); //fetcheo los generos
         genres= await genres.json();
         genres=genres.results;
@@ -108,17 +113,27 @@ async function getGenres()
     catch(e){()=>console.log("fuego en getGenres")}
 }
 
-async function AddVideogame(details)
+async function AddVideogame(name,description,releaseDate,rating,platforms,genres)
 {
-    return Videogame.create({
-        ID:details.ID,
-        name:details.name,
-        description:details.description,
-        genres:details.genres,
-        releaseDate:details.releaseDate,
-        rating:details.rating,
-        platforms:details.platforms,
-    });
+    platforms=platforms.join(',') //hago el join, asi lo subo como un string de platforms
+    try
+    {
+        const gameAdded = await Videogame.findOrCreate( //si no existe, lo crea
+        {
+            where:
+            {
+                name,
+                description,
+                releaseDate,
+                rating,
+                platforms,
+            }
+        });
+        console.log(gameAdded)
+        await gameAdded[0].setGenres(genres); //relaciona el id de genres con el juego creado (el id es el name)
+        return gameAdded[0]; 
+    }
+    catch(e){console.log(e)}
 }
 
 // Configurar los routers
@@ -163,9 +178,9 @@ router.get('/genres',async function(req,res)
 
 router.post('/videogame',async function(req,res)
 {
-    let details={ID:req.body.ID,name:req.body.name,description:req.body.description,releaseDate:req.body.releaseDate,rating:req.body.rating,platforms:req.body.platforms,genres:req.body.genres}
-    let newVideogame= await AddVideogame(details);
-    res.json(newVideogame);
+    let {name,description,releaseDate,rating,platforms,genres} = req.body; //tomo lo enviado desde el front 
+    let newVideogame= await AddVideogame(name,description,releaseDate,rating,platforms,genres);
+    res.json(newVideogame); //devuelvo el creado;
 });
 
 module.exports = router;
