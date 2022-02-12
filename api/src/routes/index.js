@@ -35,7 +35,6 @@ async function reSize(page,out,apiRaw,dbRaw,name)
     }
 }
 
-
 async function getVideogames(name,page=0)
 {
     //--me traigo todo de la db y api--
