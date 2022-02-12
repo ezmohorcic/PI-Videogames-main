@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const res = require('express/lib/response');
-const YOUR_API_KEY='0d0560168f704159886770370807e888';
+const api_key='0d0560168f704159886770370807e888';
 const fetch = require("node-fetch");
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
@@ -17,7 +17,7 @@ async function reSize(page,out,apiRaw,dbRaw)
         var apiPage=2;
         while(rawOut.length<=((page+1)*15)) //mientras que el array total sea menor que el numero del ultimo item de la pag ((page+1)*15)
         {
-            let newPage= await fetch(`https://api.rawg.io/api/games?key=0d0560168f704159886770370807e888&page=${apiPage}`) //fetchea de la siguiente pagina 
+            let newPage= await fetch(`https://api.rawg.io/api/games?key=${api_key}&page=${apiPage}`) //fetchea de la siguiente pagina 
             rawOut=[...rawOut,...newPage]; //agrega a rawOut
             apiPage++; //aumento para el llamado a la siguiente pagina
         }
@@ -26,17 +26,18 @@ async function reSize(page,out,apiRaw,dbRaw)
 }
 
 
-async function getVideogames(name,page)
+async function getVideogames(name,page=0)
 {
     //--me traigo todo de la db y api--
     //let dbRaw=Videogame.findAll(); //busco los juegos en db
     let dbRaw=[];
+    var apiRaw_1 =[];
     var apiRaw =[];
 
     console.log("line  36:"+apiRaw);
     if(name) //--Caso:  /videogames?name="..." --
     {
-        apiRaw=await fetch(`https://api.rawg.io/api/games/?search=${name}&key=${YOUR_API_KEY}`) //fetcheo a api
+        apiRaw=await fetch(`https://api.rawg.io/api/games/?search=${name}&key=${api_key}`) //fetcheo a api
         apiRaw = await json(apiRaw);
         console.log(apiRaw);
         dbRaw=dbRaw.filter(vdg => vdg.name.toLowerCase().includes(name.toLowerCase()));//filtro por nombre en base de datos
@@ -45,18 +46,15 @@ async function getVideogames(name,page)
     }
     else //--Caso: /videogames --
     {
-        fetch(`https://api.rawg.io/api/games?key=0d0560168f704159886770370807e888`)
-        .then(r=>{
-            //console.log(r)
-            apiRaw=r.json();
-            
-        })
-        console.log("line53")
-        console.log(apiRaw)
+        apiRaw_1= await fetch(`https://api.rawg.io/api/games?key=${api_key}`)
+        apiRaw = await apiRaw_1.json();
+        apiRaw=apiRaw.results
+        //console.log("line53")
+        //console.log(apiRaw)
     }
     let out = [...dbRaw,...apiRaw].slice(page*15,(page+1)*15);// || page=0 => 0*15 a (1*15)-1 == 0 a 14 || page=1 => 1*15 a ((1+1)*15)-1 == 15 a 29 || 
     //out= await reSize(page,out,apiRaw,dbRaw); //lo mando aca para asegurarme que out sea 15, si es menos, fetchea las siguientes paginas de api y rellena 
-    //console.log(out);
+    console.log(out);
     return out;
     //--Left overs--
     /*if(raw.length<page*15){raw=[];} //si hay menos que la pagina, es que mostre todos
@@ -161,6 +159,8 @@ router.get('/videogames',async function(req,res)
         let {name}=req.query;
         let {page}=req.body
         let videogames = await getVideogames(name,page);
+        console.log("line 162")
+        console.log(videogames)
         return res.json(videogames);
     }
     catch(e)
