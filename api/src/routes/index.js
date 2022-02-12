@@ -17,7 +17,7 @@ async function reSize(page,out,apiRaw,dbRaw)
         var apiPage=2;
         while(rawOut.length<=((page+1)*15)) //mientras que el array total sea menor que el numero del ultimo item de la pag ((page+1)*15)
         {
-            let newPage= await fetch(`https://api.rawg.io/api/games/?key=${YOUR_API_KEY}&page=${apiPage}`) //fetchea de la siguiente pagina 
+            let newPage= await fetch(`https://api.rawg.io/api/games?key=0d0560168f704159886770370807e888&page=${apiPage}`) //fetchea de la siguiente pagina 
             rawOut=[...rawOut,...newPage]; //agrega a rawOut
             apiPage++; //aumento para el llamado a la siguiente pagina
         }
@@ -33,7 +33,7 @@ async function getVideogames(name,page)
     let dbRaw=[];
     var apiRaw =[];
 
-    console.log(apiRaw);
+    console.log("line  36:"+apiRaw);
     if(name) //--Caso:  /videogames?name="..." --
     {
         apiRaw=await fetch(`https://api.rawg.io/api/games/?search=${name}&key=${YOUR_API_KEY}`) //fetcheo a api
@@ -45,12 +45,18 @@ async function getVideogames(name,page)
     }
     else //--Caso: /videogames --
     {
-        apiRaw= await fetch(`https://api.rawg.io/api/games/?key=${YOUR_API_KEY}`)
-        apiRaw = await apiRaw.json();
+        fetch(`https://api.rawg.io/api/games?key=0d0560168f704159886770370807e888`)
+        .then(r=>{
+            //console.log(r)
+            apiRaw=r.json();
+            
+        })
+        console.log("line53")
+        console.log(apiRaw)
     }
     let out = [...dbRaw,...apiRaw].slice(page*15,(page+1)*15);// || page=0 => 0*15 a (1*15)-1 == 0 a 14 || page=1 => 1*15 a ((1+1)*15)-1 == 15 a 29 || 
-    out= await reSize(page,out,apiRaw,dbRaw); //lo mando aca para asegurarme que out sea 15, si es menos, fetchea las siguientes paginas de api y rellena 
-    console.log(out);
+    //out= await reSize(page,out,apiRaw,dbRaw); //lo mando aca para asegurarme que out sea 15, si es menos, fetchea las siguientes paginas de api y rellena 
+    //console.log(out);
     return out;
     //--Left overs--
     /*if(raw.length<page*15){raw=[];} //si hay menos que la pagina, es que mostre todos
