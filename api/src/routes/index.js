@@ -17,6 +17,12 @@ async function getVideogames(name,page)
     if(raw.length>0) //si hay juegos de db, significa que es la primera vez que muestro juegos de api
     {
         apiRaw=apiRaw.slice(0,15-raw.length); //busco para rellenar 15
+        apiRaw.forEach(element => {
+            for(var i=0;i<element.results[0].platforms;i++)
+            {
+                element.results[0].platforms[i]=element.results[0].platforms[i].name;
+            }
+        });
         return raw.concat(apiRaw); //concateno y devuelvo
     }
     else
