@@ -4,9 +4,18 @@ import { Link } from 'react-router-dom';
 
 export function ShowGenres(props)
 {
+    const genres = useSelector((state)=>state.genres);
+    const dispatch=useDispatch();
+
+    let arrGenres=genres.map((element,index)=>
+    {
+        return(
+            <div className="genreButCont" key={"genre"+index}>{element.name}</div>
+        )
+    });
     return(
         <div id='showGenresContainer'>
-            
+                {arrGenres}
         </div>
     )
 }

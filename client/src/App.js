@@ -2,6 +2,7 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import {BrowserRouter,Routes,Route} from "react-router-dom";
 
+import store from './redux/store.js';
 import { StartView } from './components/StartView/StartView';
 import { Header } from './components/Header/Header';
 import { ShowAll } from './components/ShowAll/ShowAll';

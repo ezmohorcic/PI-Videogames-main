@@ -7,7 +7,7 @@ export function StartView(props)
 {
     return (
         <div id='startViewBackground'>
-            <Link id='startViewLink' to={"/showMain"}></Link>
+            <Link id='startViewLink' to={"/showMain"}>Enter!</Link>
         </div>
     )
 }

@@ -6,7 +6,7 @@ export function Header(props)
 {
     return(
         <div id='headerContainer'>
-            
+            <p>owo header!</p>
         </div>
     )
 }

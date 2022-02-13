@@ -232,6 +232,11 @@ async function AddVideogame(name,description,releaseDate,rating,platforms,genres
 
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
+router.get("/",function(req,res)
+{
+    
+});
+
 router.get('/videogames',async function(req,res)
 {
     try
