@@ -2,9 +2,9 @@ import React, { useEffect, useState, useContext } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from 'react-router-dom';
 
-import { Order } from '../Options/Order/Order.jsx';
-import {Filters} from '../Options/Filters/Filters.jsx'
-
+import { Order } from './Options/Order/Order.jsx';
+import {Filters} from './Options/Filters/Filters.jsx'
+import { Videogames } from './Videogames/Videogames.jsx';
 
 export function ShowAll(props)
 {
@@ -17,6 +17,9 @@ export function ShowAll(props)
                 <div id="orderShell">
                     <Order/>
                 </div>
+            </div>
+            <div id='videogamesWholeContainer'>
+                <Videogames/>
             </div>
         </div>
     )

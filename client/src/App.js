@@ -6,11 +6,10 @@ import { StartView } from './components/StartView/StartView';
 import { Header } from './components/Header/Header';
 import { ShowAll } from './components/ShowAll/ShowAll';
 import { DetailVG } from './components/DetailedVG/DetailVG';
+import { CreateVG } from './components/CreateVG/CreateVG';
+import { ShowGenres } from './components/ShowGenres/ShowGenres';
 
 import './App.css';
-
-
-
 
 function App() {
   const dummy="xd"
@@ -24,6 +23,8 @@ function App() {
             <Route exact path="/" element={<StartView/>}/>   
             <Route exact path="/showAll" element={<ShowAll/>}/>
             <Route path={"/"+dummy} element={<DetailVG/>}/>
+            <Route path={"/CreateVG"} element={<CreateVG/>}/>
+            <Route path={"/ShowGenres"} element={<ShowGenres/>}/>
           </Routes>
         </BrowserRouter>
       </Provider>
