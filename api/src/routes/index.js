@@ -35,7 +35,7 @@ async function reSize(page,out,apiRaw,dbRaw,name)
     }
 }
 
-async function getVideogames(name,page=0)
+async function getVideogames(name,page=0,filter,order)
 {
     //--me traigo todo de la db y api--
     let dbRaw = await Videogame.findAll(); //busco los juegos en db
@@ -60,6 +60,64 @@ async function getVideogames(name,page=0)
     let out = [...dbRaw,...apiRaw].slice(page*15,(page+1)*15);// || page=0 => 0*15 a (1*15)-1 == 0 a 14 || page=1 => 1*15 a ((1+1)*15)-1 == 15 a 29 || 
     out= await reSize(page,out,apiRaw,dbRaw,name); //lo mando aca para asegurarme que out sea 15, si es menos, fetchea las siguientes paginas de api y rellena 
     return out;
+
+
+    
+}
+
+async function ALTERgetVideogames(name,page=0,filter,order)
+{
+    //--me traigo todo de la db y api--
+    let dbRaw = await Videogame.findAll(); //busco los juegos en db
+    if(name){dbRaw=dbRaw.filter(vdg => vdg.name.toLowerCase().includes(name.toLowerCase()));}//filtro por nombre en base de datos}
+
+    var apiRaw =[];
+    for(let i=0;i<6;i++) //Traigo 100 juegos por indicado en ReadMe
+    {
+        let temp;
+        if(name){ temp = await fetch(`https://api.rawg.io/api/games?search=${name}&key=${api_key}`);} //si hay que filtrar por nombre
+        else {temp= await fetch(`https://api.rawg.io/api/games?key=${api_key}`);}   //si no hay que filtrar por nombre
+        temp = await temp.json;
+        temp=temp.result;
+        apiRaw=[...apiRaw,...temp];
+    }
+
+    //--code con order/filtro
+    
+    if(filter) // genero || db O api  
+    {
+        switch (filter.type) {
+            case "genero":
+                dbRaw=dbRaw.filter(vd => vd.genres.includes(filter.payload));
+                apiRaw
+            break;
+        
+            case "dbOapi":
+
+            break;
+
+            default:
+            break;
+        }
+    }
+
+    let outRaw = [...dbRaw,...apiRaw];
+
+    if(order)// alfabetico || rating
+    {
+        switch (order.type) {
+            case 'alfabetico':
+                
+            break;
+
+            case 'rating':
+                
+            break;
+        
+            default:
+            break;
+        }
+    }
 }
 
 async function getVideogameByID(idVideogame)
@@ -142,8 +200,8 @@ router.get('/videogames',async function(req,res)
     try
     {
         let {name}=req.query;
-        let {page}=req.body
-        let videogames = await getVideogames(name,page);
+        let {page,filter,order}=req.body
+        let videogames = await getVideogames(name,page,filter,order);
         return res.json(videogames);
     }
     catch(e){console.log(e);}
