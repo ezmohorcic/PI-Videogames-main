@@ -7,7 +7,7 @@ export function Filters(props)
 {
     return(
         <div id="filterInnerCont">
-            
+            FILTER!
         </div>
     )
 }

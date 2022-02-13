@@ -7,7 +7,7 @@ export function Order(props)
 {
     return(
         <div id="orderInnerCont">
-            
+            ORDER!
         </div>
     )
 }
