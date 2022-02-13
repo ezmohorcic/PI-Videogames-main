@@ -9,6 +9,8 @@ const { Videogame,Genre } = require('../db.js');
 
 const router = Router();
 
+//left overs
+/*
 async function reSize(page,out,apiRaw,dbRaw,name)
 {
     if(out.length==15){return out}
@@ -33,28 +35,6 @@ async function reSize(page,out,apiRaw,dbRaw,name)
         }
         return rawOut.slice(page*15,(page+1)*15); //devuelvo cortado los 15 especificos
     }
-}
-
-function compareName( a, b ) {
-    //console.log(a.name)
-    //console.log(b.name)
-    if ( a.name < b.name ){
-      return -1;
-    }
-    if ( a.name > b.name ){
-      return 1;
-    }
-    return 0;
-  }
-
-function compareRatings( a, b ) {
-  if ( a.rating > b.rating ){
-    return -1;
-  }
-  if ( a.rating < b.rating ){
-    return 1;
-  }
-  return 0;
 }
 
 async function getVideogames(name,page=0,filter,order)
@@ -86,6 +66,7 @@ async function getVideogames(name,page=0,filter,order)
 
     
 }
+*/
 
 async function ALTERgetVideogames(name,page=0,filter,order)
 {
@@ -111,7 +92,16 @@ async function ALTERgetVideogames(name,page=0,filter,order)
     {
         switch (filter.type) {
             case "genero":
-                dbRaw=dbRaw.filter(vd => vd.genres.includes(filter.payload)); //revisar esto, ver como filtrar DB
+                dbRaw = await Videogame.findAll(
+                    {
+                        include:[{
+                            model: Genre,
+                            where:{name:filter.payload},
+                            attributes:['name']
+                        }]
+                    });
+                console.log(dbRaw)
+                //dbRaw=dbRaw.filter(vd => vd.genres.includes(filter.payload)); //revisar esto, ver como filtrar DB
                 apiRaw = apiRaw.filter(vd=>
                     {
                         let flag=false;
