@@ -11,10 +11,11 @@ export function Videogames(props)
     console.log(videogames)
     let arrVideogames = videogames.map((element,index)=>
     {
+        console.log()
         let name=element.name;
         let img='../../../../../public/alt_img_joystick.jpg';
         let genres=[];
-        if(element.id.length<20)
+        if(typeof element.id == "number")
         {
             img=element.background_image;
             element.genres.forEach(element =>{genres.push(element.name)});
@@ -23,7 +24,7 @@ export function Videogames(props)
         {
             genres[0]=element.genres.name;
         }
-        return (<Videogame key={"vgCard"+index} index={index} name={name} img={img} genres={genres}/>)
+        return (<Videogame key={"vgCard"+index} id={element.id} index={index} name={name} img={img} genres={genres}/>)
     });
     let arrVg=[]
     return(

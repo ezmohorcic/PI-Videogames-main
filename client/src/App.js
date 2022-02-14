@@ -18,14 +18,13 @@ function App() {
     <div className="App">
       <h1>Henry Videogames</h1>
       <Provider store={store}>
-        <Header/>
         <BrowserRouter>
           <Routes>
-            <Route exact path="/" element={<StartView/>}/>   
-            <Route exact path="/showAll" element={<ShowAll/>}/>
-            <Route path={"/"+dummy} element={<DetailVG/>}/>
-            <Route path={"/CreateVG"} element={<CreateVG/>}/>
-            <Route path={"/ShowGenres"} element={<ShowGenres/>}/>
+            <Route exact path="/" element={<><Header/><StartView/></>}/>   
+            <Route exact path="/showAll" element={<><Header/><ShowAll/></>}/>
+            <Route path={"/videogame/:id"} element={<><Header/><DetailVG/></>}/>
+            <Route exact path={"/CreateVG"} element={<><Header/><CreateVG/></>}/>
+            <Route exact path={"/ShowGenres"} element={<><Header/><ShowGenres/></>}/>
           </Routes>
         </BrowserRouter>
       </Provider>

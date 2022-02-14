@@ -1,4 +1,4 @@
-import { ALL_GENRES, ADD_GENRE, SHOW_VIDEOGAMES_PAGE, DETAIL_VIDEOGAME } from "../consts";
+import { ALL_GENRES, ADD_GENRE, SHOW_VIDEOGAMES_PAGE, DETAIL_VIDEOGAME, CHANGE_ORDER, CHANGE_FILTER, CHANGE_FILT_ORD, NEW_PAGE } from "../consts";
 
 export function dummy (payload)
 {
@@ -37,10 +37,15 @@ export function getVideogames({query=null,page=null,filter=null,order=null})
     {
         try
         {
-            let q="?page="+page.toString();
-            if(query){q= q+"&search="+query;}
-            if(filter){q= q+'&filterType='+filter.type +'&filterGenres='+filter.payload}
-            if(order){q= q+'&order='+order}
+            let q= "?page="+page.toString();
+            if(query){q= q+"&name="+query;}
+            if(filter)
+            {
+                q= q+'&filterType='+filter.type;
+                if(filter.genres){q = q+'&filterGenres='+filter.payload;}
+            }
+            if(order){q= q+'&order='+order;}
+            console.log(q)
             const response = await fetch("http://localhost:3001/videogames"+q); //+q+p+filterType+filterGenres,orderType
             const json= await response.json();
             dispatch({type:SHOW_VIDEOGAMES_PAGE,payload:json});
@@ -59,7 +64,8 @@ export function getVideogameById(id)
     {
         try
         {
-            const response = await fetch("http://localhost:3001/videogame/"+id);
+            console.log("mandando id a server: "+id)
+            const response = await fetch("http://localhost:3001/videogames/"+id);
             const json= await response.json();
             dispatch({type:DETAIL_VIDEOGAME,payload:json});
         }
@@ -94,3 +100,32 @@ export function addVideogames(payload)
 }
 
 //----Add Videogames----
+
+//----Filters And Order----
+
+export function setOrder(payload)
+{
+ return{type:CHANGE_ORDER,payload}
+}
+
+export function setFilter(payload)
+{
+ return{type:CHANGE_FILTER,payload}
+}
+
+export function setOrderAndFilter(payload)
+{
+ return{type:CHANGE_FILT_ORD,payload}
+}
+
+//----Filters And Order----
+
+
+//----Page----
+
+export function setPage(payload)
+{
+    return {type:NEW_PAGE,payload}
+}
+
+//----Page----

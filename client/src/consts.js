@@ -7,3 +7,7 @@ export const FILTER_TYPE_GENRES="genero";
 export const FILTER_TYPE_DBOAPI="dbOapi";
 export const ORDER_ALFABETICO="alfabetico";
 export const ORDER_RATING="rating";
+export const CHANGE_FILTER="CHANGE_FILTER";
+export const CHANGE_ORDER="CHANGE_ORDER";
+export const CHANGE_FILT_ORD="CHANGE_FILT_ORD";
+export const NEW_PAGE="NEW_PAGE";

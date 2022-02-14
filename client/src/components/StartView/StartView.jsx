@@ -12,7 +12,7 @@ export function StartView(props)
     const getInit = function()
     {
         dispatch(getAllGenres());
-        dispatch(getVideogames({page:0,filter:{type:FILTER_TYPE_GENRES,payload:"Action"},order:ORDER_RATING}))
+        dispatch(getVideogames({page:0}));
     }
     return (
         <div id='startViewBackground'>

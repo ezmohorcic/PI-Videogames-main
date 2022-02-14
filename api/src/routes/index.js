@@ -114,7 +114,8 @@ async function getVideogameByID(idVideogame)
         {
             
             const videogames= await Videogame.findByPk(idVideogame); //findByPk == busqueda por primary key
-            console.log(videogames);
+            console.log("game by id");
+            console.log(videogames.name);
             return videogames;
         }
         catch(e){()=>console.log("fuego en database de getVideogameByID: "+e)}
@@ -143,7 +144,7 @@ async function getGenres()
                 }
             })
         })
-
+        genres.forEach(element=>console.log(element.name))
         return genres;
     }
     catch(e){()=>console.log("fuego en getGenres")}
