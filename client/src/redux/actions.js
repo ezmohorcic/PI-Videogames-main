@@ -1,4 +1,4 @@
-import { ALL_GENRES, ADD_GENRE, SHOW_VIDEOGAMES_PAGE, DETAIL_VIDEOGAME, CHANGE_ORDER, CHANGE_FILTER, CHANGE_FILT_ORD, NEW_PAGE, NEW_SEARCH } from "../consts";
+import { ALL_GENRES, ADD_GENRE, SHOW_VIDEOGAMES_PAGE, DETAIL_VIDEOGAME, CHANGE_ORDER, CHANGE_FILTER, CHANGE_FILT_ORD, NEW_PAGE, NEW_SEARCH, ADDED_ID } from "../consts";
 
 export function dummy (payload)
 {
@@ -93,7 +93,8 @@ export function addVideogames(payload)
                 },
             });
             const json= await response.json();
-            dispatch({type:ALL_GENRES,payload:json});
+            console.log(json)
+            dispatch({type:ADDED_ID,payload:json.id});
         }
         catch(e){console.log(e)}
     }

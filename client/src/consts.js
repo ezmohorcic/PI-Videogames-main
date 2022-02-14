@@ -12,3 +12,4 @@ export const CHANGE_ORDER="CHANGE_ORDER";
 export const CHANGE_FILT_ORD="CHANGE_FILT_ORD";
 export const NEW_PAGE="NEW_PAGE";
 export const NEW_SEARCH="NEW_SEARCH";
+export const ADDED_ID="ADDED_ID";

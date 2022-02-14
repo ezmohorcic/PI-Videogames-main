@@ -200,6 +200,7 @@ router.get('/videogames/:idVideogame',async function(req,res)
     try
     {
         let videogame=await getVideogameByID(req.params.idVideogame)
+        console.log(videogame)
         res.json(videogame);
         //return res.json(await getVideogamesByID(req.params.idVideogame));
     }

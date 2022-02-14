@@ -2,12 +2,13 @@ import React, { useEffect, useState, useContext } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from 'react-router-dom';
 
-import { addVideogames, getAllGenres } from '../../redux/actions';
+import { addVideogames, getAllGenres, getVideogameById } from '../../redux/actions';
 
 export function CreateVG(props)
 {
     const dispatch=useDispatch()
     const genres=useSelector((state)=>state.genres);
+    const addedId=useSelector(state=>state.addedvideogame);
     if(genres.length==0){dispatch(getAllGenres())}
     
 
@@ -52,14 +53,22 @@ export function CreateVG(props)
             rawErrors=[...rawErrors,'Error en genres']
             console.log(rawErrors)
         }
-        setErrors(rawErrors)
-        if(flag){dispatch(addVideogames(newGame))}
+        setErrors(rawErrors);
+        if(flag){
+            setErrors([...errors,'Enviando a db!'])
+            dispatch(addVideogames(newGame))
+        }
     }
 
     const arrGenres= genres.map((element,index)=><option key={"option_"+index}>{element.name}</option>)
     const arrPlatforms=newGame.platforms.map((element,index)=><p key={"showPlat_"+index}>{element}</p>)
     const arrGenre=newGame.genres.map((element,index)=><p key={"showGen_"+index}>{element}</p>)
-    const arrErros=errors.map((element,index)=><p key={"showError_"+index}>{element}</p>)
+    const arrErros= errors.map((element,index)=><p key={"showError_"+index}>{element}</p>)
+    let linkTo='';
+    console.log(addedId)
+    if(addedId){
+        console.log("addedID")
+        linkTo=<Link to={"/videogame/"+addedId} onClick={()=>{dispatch(getVideogameById(addedId))}}>Juego agregado!</Link>}
     return(
         <div id='createContainer'>
             <div id="createNameShell"><input value={newGame.name} onChange={(e)=>setNewGame({...newGame,name:e.target.value})} type="text" name="name" id="createName" placeholder='Name' /></div>
@@ -91,11 +100,10 @@ export function CreateVG(props)
             }>add genre</button>
             {arrGenre}
             <div>{arrErros}</div>
-            {console.log(errors)}
             <div id="createShell">
                 <button id="CreateGame" onClick={()=>{handleSend()}}>Create!</button>
             </div>
-
+            {linkTo}
         </div>
     )
 }

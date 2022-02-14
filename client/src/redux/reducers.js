@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import  {ALL_GENRES, ADD_GENRE, SHOW_VIDEOGAMES_PAGE, DETAIL_VIDEOGAME, CHANGE_FILTORDER, CHANGE_FILT_ORD, CHANGE_FILTER, CHANGE_ORDER, NEW_PAGE, NEW_SEARCH } from "../consts.js";
+import  {ALL_GENRES, ADD_GENRE, SHOW_VIDEOGAMES_PAGE, DETAIL_VIDEOGAME, CHANGE_FILTORDER, CHANGE_FILT_ORD, CHANGE_FILTER, CHANGE_ORDER, NEW_PAGE, NEW_SEARCH, ADDED_ID } from "../consts.js";
 
 function dummy(state={},action)
 {
@@ -27,6 +27,7 @@ function detailVideogames (state={},action)
 {
     if(action.type==DETAIL_VIDEOGAME)
     {
+        console.log(action.payload)
         return action.payload;
     }
     else return state;
@@ -52,6 +53,14 @@ function search(state="",action)
     else return state;
 }
 
+function addedvideogame(state="",action)
+{   
+    if(action.type==ADDED_ID){
+        console.log(action)
+        return action.payload}
+    else return state;
+}
+
 const rootReducer=combineReducers(
 {
     dummy,
@@ -61,6 +70,7 @@ const rootReducer=combineReducers(
     filterAndOrder,
     page,
     search,
+    addedvideogame,
 });
 
 export default rootReducer;
