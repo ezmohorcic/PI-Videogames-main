@@ -20,38 +20,39 @@ export function CreateVG(props)
     {
         console.log("handing send")
         let flag=true;
+        let rawErrors=[]
         if(/([#$%^&*{}])/.test(newGame.name) || newGame.name=="")
         {
             console.log(/([#$%^&*{}])/.test(newGame.name))
             flag=false;
-            setErrors([...errors,'Error en name'])
-            console.log(errors)
+            rawErrors=[...rawErrors,'Error en name']
+            console.log(rawErrors)
         }
         if(newGame.description=="")
         {
             flag=false;
-            setErrors([...errors,'Error en description'])
-            console.log(errors)
+            rawErrors=[...rawErrors,'Error en description']
+            console.log(rawErrors)
         }
         if(newGame.rating<0 || newGame.rating>5)
         {
             flag=false;
-            setErrors([...errors,'Error en rating'])
-            console.log(errors)
+            rawErrors=[...rawErrors,'Error en rating']
+            console.log(rawErrors)
         }
         if(newGame.platforms.length<1)
         {
             flag=false;
-            setErrors([...errors,'Error en platforms'])
-            console.log(errors)
+            rawErrors=[...rawErrors,'Error en platforms']
+            console.log(rawErrors)
         }
         if(newGame.genres.length<1)
         {
             flag=false;
-            setErrors([...errors,'Error en genres'])
-            console.log(errors)
+            rawErrors=[...rawErrors,'Error en genres']
+            console.log(rawErrors)
         }
-        console.log(flag)
+        setErrors(rawErrors)
         if(flag){dispatch(addVideogames(newGame))}
     }
 
