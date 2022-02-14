@@ -1,4 +1,4 @@
-import { ALL_GENRES, ADD_GENRE, SHOW_VIDEOGAMES_PAGE, DETAIL_VIDEOGAME, CHANGE_ORDER, CHANGE_FILTER, CHANGE_FILT_ORD, NEW_PAGE } from "../consts";
+import { ALL_GENRES, ADD_GENRE, SHOW_VIDEOGAMES_PAGE, DETAIL_VIDEOGAME, CHANGE_ORDER, CHANGE_FILTER, CHANGE_FILT_ORD, NEW_PAGE, NEW_SEARCH } from "../consts";
 
 export function dummy (payload)
 {
@@ -84,7 +84,7 @@ export function addVideogames(payload)
     {
         try
         {
-            const response = await fetch("http://localhost:3001/genres",
+            const response = await fetch("http://localhost:3001/videogame",
             {
                 method: "POST",
                 body: JSON.stringify(payload),
@@ -129,3 +129,13 @@ export function setPage(payload)
 }
 
 //----Page----
+
+
+//----Search----
+
+export function setSearch(payload)
+{
+    return {type:NEW_SEARCH,payload}
+}
+
+//----Search----

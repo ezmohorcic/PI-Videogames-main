@@ -222,6 +222,7 @@ router.get('/genres',async function(req,res)
 
 router.post('/videogame',async function(req,res)
 {
+    console.log(req.body.name)
     let {name,description,releaseDate,rating,platforms,genres} = req.body; //tomo lo enviado desde el front 
     let newVideogame= await AddVideogame(name,description,releaseDate,rating,platforms,genres);
     res.json(newVideogame); //devuelvo el creado;
