@@ -20,6 +20,14 @@ export function Filters(props) //Solo se encarga de
         let tempOptions=[ <option key={"empty_option"}> </option>,genres.map((element,index)=><option key={"option_"+index}>{element.name}</option>)]
         dropDownFilter = <select id='filterSelect' value={""} onChange={(e)=>{dispatch(setFilter({type:"genero",payload:e.target.value}))}}>{tempOptions}</select>
     }
+    else if(typeFilter===FILTER_TYPE_DBOAPI)
+    {
+        dropDownFilter = <select id='filterSelect' value={""} onChange={(e)=>{dispatch(setFilter({type:"dbOapi",payload:e.target.value}))}}>
+                <option key={"option_"} value={""}>{""}</option>
+                <option key={"option_DB"} value={"db"}>{"db"}</option>
+                <option key={"option_API"} value={"api"}>{"api"}</option>
+            </select>
+    }
 
     return(
         <div id="filterInnerCont">

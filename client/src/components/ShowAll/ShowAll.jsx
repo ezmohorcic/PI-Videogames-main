@@ -6,6 +6,7 @@ import {Filters} from './Options/Filters/Filters.jsx'
 import { Videogames } from './Videogames/Videogames.jsx';
 import { useLocation } from 'react-router-dom';
 import { setSearch } from '../../redux/actions.js';
+import { PageButtons } from './PageButtons/PageButtons.jsx';
 
 export function ShowAll() //Solo se encarga de ?search= NADIE FUERA DE VIDEOGAMES MANDA PETICION GETVIDEOGAMES
 {
@@ -34,6 +35,7 @@ export function ShowAll() //Solo se encarga de ?search= NADIE FUERA DE VIDEOGAME
             <div id='videogamesWholeContainer'>
                 <Videogames/>
             </div>
+            <PageButtons/>
         </div>
     )
 }

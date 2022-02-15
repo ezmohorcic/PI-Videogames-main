@@ -96,7 +96,6 @@ export function CreateVG(props)
                         setAddingPlat("");
                     }
                 }
-
             }>add genre</button>
             {arrGenre}
             <div>{arrErros}</div>

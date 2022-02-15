@@ -13,3 +13,5 @@ export const CHANGE_FILT_ORD="CHANGE_FILT_ORD";
 export const NEW_PAGE="NEW_PAGE";
 export const NEW_SEARCH="NEW_SEARCH";
 export const ADDED_ID="ADDED_ID";
+export const NEXT_PAGE="NEXT_PAGE";
+export const LAST_PAGE="LAST_PAGE";

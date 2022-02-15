@@ -24,7 +24,8 @@ export function Videogames()
         //console.log(element)
         let name=element.name;
         let img=element.background_image;
-        let genres=element.genres.split(',');
+        let genres=[]
+        if(element.genres)genres=element.genres.split(',');
         return (<Videogame key={"vgCard"+index} id={element.id} index={index} name={name} img={img} genres={genres}/>)
     });
     return(

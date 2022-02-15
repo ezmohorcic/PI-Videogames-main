@@ -1,4 +1,4 @@
-import { ALL_GENRES, ADD_GENRE, SHOW_VIDEOGAMES_PAGE, DETAIL_VIDEOGAME, CHANGE_ORDER, CHANGE_FILTER, CHANGE_FILT_ORD, NEW_PAGE, NEW_SEARCH, ADDED_ID } from "../consts";
+import { ALL_GENRES, ADD_GENRE, SHOW_VIDEOGAMES_PAGE, DETAIL_VIDEOGAME, CHANGE_ORDER, CHANGE_FILTER, CHANGE_FILT_ORD, NEW_PAGE, NEW_SEARCH, ADDED_ID, NEXT_PAGE, LAST_PAGE } from "../consts";
 
 export function dummy (payload)
 {
@@ -45,6 +45,7 @@ export function getVideogames({query=null,page=null,filter=null,order=null})
                 if(filter.payload){q = q+'&filterGenres='+filter.payload;}
             }
             if(order){q= q+'&order='+order.type;}
+            console.log(q)
             const response = await fetch("http://localhost:3001/videogames"+q); //+q+p+filterType+filterGenres,orderType
             const json= await response.json();
             dispatch({type:SHOW_VIDEOGAMES_PAGE,payload:json});
@@ -128,6 +129,15 @@ export function setPage(payload)
     return {type:NEW_PAGE,payload}
 }
 
+export function nextPage()
+{
+    return {type:NEXT_PAGE,payload:1}
+}
+
+export function lastPage()
+{
+    return {type:LAST_PAGE,payload:1}
+}
 //----Page----
 
 
