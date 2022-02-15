@@ -49,7 +49,9 @@ function page(state=0,action)
 
 function search(state="",action)
 {
-    if(action==NEW_SEARCH){return action.payload}
+    if(action==NEW_SEARCH){
+        console.log(action)
+        return action.payload}
     else return state;
 }
 

@@ -10,7 +10,7 @@ export function Videogames(props)
     console.log(videogames)
     let arrVideogames = videogames.map((element,index)=>
     {
-        console.log()
+        console.log(element)
         let name=element.name;
         let img='../../../../../public/alt_img_joystick.jpg';
         let genres=[];
