@@ -1,7 +1,7 @@
-import React, { useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from 'react-router-dom';
-import { getVideogames, setOrderAndFilter, setPage, setSearch } from '../../redux/actions';
+import { setOrderAndFilter, setPage, setSearch } from '../../redux/actions';
 
 export function Header(props)
 {

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from 'react-router-dom';
 
@@ -9,7 +9,7 @@ export function CreateVG(props)
     const dispatch=useDispatch()
     const genres=useSelector((state)=>state.genres);
     const addedId=useSelector(state=>state.addedvideogame);
-    if(genres.length==0){dispatch(getAllGenres())}
+    if(genres.length===0){dispatch(getAllGenres())}
     
 
     const [newGame,setNewGame]=useState({name:"",description:"",releaseDate:"",rating:0,platforms:[],genres:[]});
@@ -22,14 +22,14 @@ export function CreateVG(props)
         console.log("handing send")
         let flag=true;
         let rawErrors=[]
-        if(/([#$%^&*{}])/.test(newGame.name) || newGame.name=="")
+        if(/([#$%^&*{}])/.test(newGame.name) || newGame.name==="")
         {
             console.log(/([#$%^&*{}])/.test(newGame.name))
             flag=false;
             rawErrors=[...rawErrors,'Error en name']
             console.log(rawErrors)
         }
-        if(newGame.description=="")
+        if(newGame.description==="")
         {
             flag=false;
             rawErrors=[...rawErrors,'Error en description']

@@ -1,12 +1,11 @@
 import React from 'react';
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch} from "react-redux";
 import { Link } from 'react-router-dom';
-import { getVideogameById } from '../../../../redux/actions';
 
 
 export function Videogame(props)
 {
-    console.log(props.img)
+    //console.log(props.img)
     const dispatch= useDispatch()
     let arrGenres=props.genres.map((element,index)=>
     {

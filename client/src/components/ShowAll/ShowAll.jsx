@@ -1,6 +1,5 @@
-import React, { useEffect, useState, useContext } from 'react';
-import { useDispatch, useSelector } from "react-redux";
-import { Link } from 'react-router-dom';
+import React, {useEffect} from 'react';
+import {useDispatch} from "react-redux";
 
 import { Order } from './Options/Order/Order.jsx';
 import {Filters} from './Options/Filters/Filters.jsx'
@@ -8,7 +7,7 @@ import { Videogames } from './Videogames/Videogames.jsx';
 import { useLocation } from 'react-router-dom';
 import { getVideogames, setSearch } from '../../redux/actions.js';
 
-export function ShowAll(props) //Solo se encarga de ?search= NADIE FUERA DE SHOWALL MANDA PETICION GETVIDEOGAMES
+export function ShowAll() //Solo se encarga de ?search= NADIE FUERA DE VIDEOGAMES MANDA PETICION GETVIDEOGAMES
 {
     const searchparams=useLocation();
     console.log(searchparams)
