@@ -20,7 +20,7 @@ function App() {
       <Provider store={store}>
         <BrowserRouter>
           <Routes>
-            <Route exact path="/" element={<><Header/><StartView/></>}/>   
+            <Route  path="/" element={<><Header/><StartView/></>}/>   
             <Route exact path="/showAll" element={<><Header/><ShowAll/></>}/>
             <Route path={"/videogame/:id"} element={<><Header/><DetailVG/></>}/>
             <Route exact path={"/CreateVG"} element={<><Header/><CreateVG/></>}/>

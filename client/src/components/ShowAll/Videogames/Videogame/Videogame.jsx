@@ -14,7 +14,7 @@ export function Videogame(props)
     });
     return(
         <div id='videogameContainer'>
-            <Link to={"/videogame/"+props.id} onClick={()=>{dispatch(getVideogameById(props.id))}}>
+            <Link to={"/videogame/"+props.id}>
                 <p id="cardName">{props.name}</p>
                 <div className='imgHolderCardVG'><img width={"500px"} height={"400px"} src={props.img} alt='../../../../../public/alt_img_joystick.jpg' /></div>
                 {arrGenres}

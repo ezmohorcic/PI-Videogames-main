@@ -8,11 +8,9 @@ import { getAllGenres, getVideogames } from '../../redux/actions';
 export function StartView(props)
 {
     const dispatch=useDispatch();
-
     const getInit = function()
     {
         dispatch(getAllGenres());
-        dispatch(getVideogames({page:0}));
     }
     return (
         <div id='startViewBackground'>
