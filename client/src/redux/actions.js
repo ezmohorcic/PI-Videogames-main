@@ -42,10 +42,9 @@ export function getVideogames({query=null,page=null,filter=null,order=null})
             if(filter)
             {
                 q= q+'&filterType='+filter.type;
-                if(filter.genres){q = q+'&filterGenres='+filter.payload;}
+                if(filter.payload){q = q+'&filterGenres='+filter.payload;}
             }
-            if(order){q= q+'&order='+order;}
-            console.log(q)
+            if(order){q= q+'&order='+order.type;}
             const response = await fetch("http://localhost:3001/videogames"+q); //+q+p+filterType+filterGenres,orderType
             const json= await response.json();
             dispatch({type:SHOW_VIDEOGAMES_PAGE,payload:json});

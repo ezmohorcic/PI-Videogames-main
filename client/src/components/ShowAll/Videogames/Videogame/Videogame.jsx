@@ -1,16 +1,14 @@
 import React from 'react';
-import { useDispatch} from "react-redux";
 import { Link } from 'react-router-dom';
 
 
 export function Videogame(props)
 {
-    //console.log(props.img)
-    const dispatch= useDispatch()
     let arrGenres=props.genres.map((element,index)=>
     {
         return(<p key={"genreCard_"+props.index+'_'+index} className='genresCard'>{element}</p>)
     });
+
     return(
         <div id='videogameContainer'>
             <Link to={"/videogame/"+props.id}>

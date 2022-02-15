@@ -1,13 +1,10 @@
 import React, {useState} from 'react';
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Link } from 'react-router-dom';
 import { setOrderAndFilter, setPage, setSearch } from '../../redux/actions';
 
 export function Header(props)
 {
-    //const filterAndOrder = useSelector((state)=>state.filterAndOrder);
-    const search = useSelector((state)=>state.search)
-    //const page = useSelector((state)=>state.page);
     const dispatch=useDispatch();
 
     const [innersearch,setInnerSearch]=useState("");

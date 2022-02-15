@@ -10,12 +10,12 @@ export function Filters(props) //Solo se encarga de
     const dispatch=useDispatch()
     const genres=useSelector((state)=>state.genres);
 
-    useEffect(()=>{if(genres.length==0){dispatch(getAllGenres())}},[])
+    useEffect(()=>{if(genres.length===0){dispatch(getAllGenres())}},[])
     
     const [typeFilter,setTypeFilter]= useState('');
 
     let dropDownFilter='';
-    if(typeFilter==FILTER_TYPE_GENRES)
+    if(typeFilter===FILTER_TYPE_GENRES)
     {
         let tempOptions=[ <option key={"empty_option"}> </option>,genres.map((element,index)=><option key={"option_"+index}>{element.name}</option>)]
         dropDownFilter = <select id='filterSelect' value={""} onChange={(e)=>{dispatch(setFilter({type:"genero",payload:e.target.value}))}}>{tempOptions}</select>

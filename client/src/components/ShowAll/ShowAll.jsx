@@ -5,24 +5,20 @@ import { Order } from './Options/Order/Order.jsx';
 import {Filters} from './Options/Filters/Filters.jsx'
 import { Videogames } from './Videogames/Videogames.jsx';
 import { useLocation } from 'react-router-dom';
-import { getVideogames, setSearch } from '../../redux/actions.js';
+import { setSearch } from '../../redux/actions.js';
 
 export function ShowAll() //Solo se encarga de ?search= NADIE FUERA DE VIDEOGAMES MANDA PETICION GETVIDEOGAMES
 {
     const searchparams=useLocation();
-    console.log(searchparams)
     const dispatch=useDispatch()
 
     useEffect(()=>
     {
-        let param='';
         if(searchparams.search)
         {   
-            param= searchparams.search.split("=")[1];
-            dispatch(setSearch(param));
-            dispatch(getVideogames({page:0,query:param}));
+            //param= searchparams.search.split("=")[1];
+            dispatch(setSearch(searchparams.search.split("=")[1]));
         }
-        else{dispatch(getVideogames({page:0}));}
     },[]);
 
     return(

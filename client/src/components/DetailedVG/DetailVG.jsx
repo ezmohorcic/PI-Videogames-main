@@ -10,37 +10,33 @@ export function DetailVG(props)
     
     const dispatch=useDispatch()
     const details= useSelector((state)=>state.detailVideogames)
-    
+    console.log(details)
     useEffect(()=>
     {
-        if(!details.hasOwnProperty("id"))
-        {
-            dispatch(getVideogameById(searchparams.pathname.split('/')[2]))
-        }
+        if(!details.hasOwnProperty("id"))dispatch(getVideogameById(searchparams.pathname.split('/')[2]))
     },[]);
 
     let rawDescription;
     let description;
-        if(typeof details.id == "number")
+    let platforms=[];
+    let genres=[];
+    let img='';
+
+    if(details.hasOwnProperty("id"))
+    {
+        if(details.description.includes("<p>"))
         {
             rawDescription=details.description.slice(3,-4).split("<br />\n");
             description = rawDescription.map((element,index)=><p key={"description_"+index}>{"\n"+element}</p>);
         }
         else{description=<p>{details.description}</p>;}
-
-    let rawPlatforms=[]
-    if(typeof details.platforms == "string"){rawPlatforms=details.platforms.split(",");}
-    let platforms=[];
-    if(typeof details.platforms == "object"){rawPlatforms.forEach((element,index)=>platforms.push(<p key={"detailed_Plat_"+index}>{element.name}</p>));}
-    else{rawPlatforms.forEach(element=>platforms.push(<p>{element}</p>));}
-
-    let genres=[];
-    if(details.genres){details.genres.forEach((element,index)=>genres.push(<p key={"detailed_Plat_"+index}>{element.name}</p>));}
-
-    let img='';
-    if(details.background_image){img=details.background_image}
-    else{img="../../../public/alt_img_joystick.jpg"}
-
+      
+        platforms=details.platforms.split(",").map((element,index)=><p key={"detailed_Plat_"+index}>{element}</p>)
+    
+        if(details.genres)genres=details.genres.split(",").map((element,index)=><p key={"detailed_Genre_"+index}>{element}</p>)
+        
+        details.background_image? img=details.background_image : img="../../../public/alt_img_joystick.jpg"
+    }
 
     return(
         <div id='detailedContainer'>

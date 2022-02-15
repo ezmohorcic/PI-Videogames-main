@@ -1,11 +1,10 @@
-import React, { useEffect, useState, useContext } from 'react';
-import { useDispatch, useSelector } from "react-redux";
+import React from 'react';
+import { useDispatch } from "react-redux";
 import { Link } from 'react-router-dom';
-import { FILTER_TYPE_GENRES, ORDER_ALFABETICO, ORDER_RATING } from '../../consts';
-import { getAllGenres, getVideogames } from '../../redux/actions';
+import { getAllGenres } from '../../redux/actions';
 
 
-export function StartView(props)
+export function StartView()
 {
     const dispatch=useDispatch();
     const getInit = function()

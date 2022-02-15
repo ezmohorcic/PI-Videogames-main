@@ -12,8 +12,10 @@ const router = Router();
 async function ALTERgetVideogames(name,page=0,filter,order)
 {
     //--me traigo todo de la db y api--
+    console.log("antes de findAll dbraw")
     let dbRaw = await Videogame.findAll(); //busco los juegos en db
-    if(name){dbRaw=dbRaw.filter(vdg => vdg.name.toLowerCase().includes(name.toLowerCase()));}//filtro por nombre en base de datos}
+    //console.log(dbRaw)
+    if(name){if(dbRaw)dbRaw=dbRaw.filter(vdg => vdg.name.toLowerCase().includes(name.toLowerCase()));}//filtro por nombre en base de datos}
 
     var apiRaw =[];
     for(let i=1;i<6;i++) //Traigo 100 juegos por indicado en ReadMe
@@ -41,12 +43,12 @@ async function ALTERgetVideogames(name,page=0,filter,order)
                             attributes:['name']
                         }]
                     });
-                console.log(dbRaw)
+                //console.log(dbRaw)
                 //dbRaw=dbRaw.filter(vd => vd.genres.includes(filter.payload)); //revisar esto, ver como filtrar DB
                 apiRaw = apiRaw.filter(vd=>
                     {
                         let flag=false;
-                        console.log(vd.name)
+                        //console.log(vd.name)
                         vd.genres.forEach(element => 
                         {
                             if(element.name==filter.payload)
@@ -69,12 +71,12 @@ async function ALTERgetVideogames(name,page=0,filter,order)
     }
 
     let outRaw = [...dbRaw,...apiRaw];
-    let logg= outRaw.map(vg=>vg.name);
+    //let logg= outRaw.map(vg=>vg.name);
     //console.log(logg)
 
     if(order) // alfabetico || rating
     {
-        switch (order.type) {
+        switch (order) {
             case 'alfabetico':
                 outRaw.sort(function(a,b)
                 {
@@ -94,7 +96,16 @@ async function ALTERgetVideogames(name,page=0,filter,order)
     }
 
 
-    let out = outRaw.slice(page*15,(page+1)*15);// || page=0 => 0*15 a (1*15)-1 == 0 a 14 || page=1 => 1*15 a ((1+1)*15)-1 == 15 a 29 || 
+    let out = outRaw.slice(page*15,(page+1)*15);// || page=0 => 0*15 a (1*15)-1 == 0 a 14 || page=1 => 1*15 a ((1+1)*15)-1 == 15 a 29 ||
+    out = out.map((element)=>
+    {
+        let partial={};
+        partial.id=element.id
+        partial.name=element.name;
+        element.background_image? partial.background_image=element.background_image : partial.background_image="./alt_img_joystick.jpg";
+        typeof element.genres == "object"? partial.genres=element.genres.map(genre=>genre.name).join(',') : partial.genre="nuh"
+        return partial;
+    }); 
     return out;
 }
 
@@ -105,7 +116,16 @@ async function getVideogameByID(idVideogame)
     {
         const resp = await fetch(`https://api.rawg.io/api/games/${idVideogame}?key=${api_key}`); //fetcheo el id
         const raw=await resp.json(); //json...
-        return raw; 
+
+        let out={};
+        out.id=raw.id;
+        if(raw.description) out.description=raw.description;
+        typeof raw.platforms === "object"? out.platforms=raw.platforms.map(element=>element.platform.name).join(',') : out.platforms=raw.platforms;
+        if(raw.name) out.name=raw.name;
+        if(raw.genres)out.genres=raw.genres.map(element=>element.name).join(',')
+        raw.background_image? out.background_image=raw.background_image : out.background_image="./alt_img_joystick.jpg";
+        console.log(out)
+        return out; 
     }
     else    //es de database, agregado a mano
     {
@@ -113,10 +133,11 @@ async function getVideogameByID(idVideogame)
         try
         {
             
-            const videogames= await Videogame.findByPk(idVideogame); //findByPk == busqueda por primary key
-            console.log("game by id");
-            console.log(videogames.name);
-            return videogames;
+            const videogame= await Videogame.findByPk(idVideogame); //findByPk == busqueda por primary key
+
+            
+
+            return videogame;
         }
         catch(e){()=>console.log("fuego en database de getVideogameByID: "+e)}
     }
@@ -144,7 +165,7 @@ async function getGenres()
                 }
             })
         })
-        genres.forEach(element=>console.log(element.name))
+        //genres.forEach(element=>console.log(element.name))
         return genres;
     }
     catch(e){()=>console.log("fuego en getGenres")}
@@ -189,6 +210,7 @@ router.get('/videogames',async function(req,res)
         let page=parseInt(req.query.page);
         let order = req.query.order;
         let videogames = await ALTERgetVideogames(name,page,filter,order);
+        console.log(videogames)
         return res.json(videogames);
     }
     catch(e){console.log(e);}
