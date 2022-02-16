@@ -15,3 +15,7 @@ export const NEW_SEARCH="NEW_SEARCH";
 export const ADDED_ID="ADDED_ID";
 export const NEXT_PAGE="NEXT_PAGE";
 export const LAST_PAGE="LAST_PAGE";
+export const NUMBER_404="NUMBER_404"; //no exito en traer
+export const NUMBER_200="NUMBER_200"; //exito en traer
+export const NUMBER_000="NUMBER_000"; //buscando
+export const SET_SEARCHING_000="SET_SEARCHING_000";

@@ -1,8 +1,9 @@
 import React from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import { getVideogames } from '../../../redux/actions';
-
+import { NUMBER_000, NUMBER_200, NUMBER_404 } from '../../../consts';
+import { getVideogames, setSearch } from '../../../redux/actions';
+import { useLocation } from 'react-router-dom';
 import { Videogame } from './Videogame/Videogame';
 
 
@@ -14,20 +15,43 @@ export function Videogames()
     const filterAndOrder = useSelector((state)=>state.filterAndOrder);
     const page = useSelector((state)=>state.page);
 
-    console.log(videogames);
-    
-    useEffect(()=>{dispatch(getVideogames({query:search,page,...filterAndOrder}))},[search,filterAndOrder,page])
-    
+    const searchparams=useLocation();
 
-    let arrVideogames = videogames.map((element,index)=>
+    console.log(search);
+    
+    useEffect(()=>
     {
-        //console.log(element)
-        let name=element.name;
-        let img=element.background_image;
-        let genres=[]
-        if(element.genres)genres=element.genres.split(',');
-        return (<Videogame key={"vgCard"+index} id={element.id} index={index} name={name} img={img} genres={genres}/>)
-    });
+        if(searchparams.search)
+        {   
+            //param= searchparams.search.split("=")[1];
+            dispatch(setSearch(searchparams.search.split("=")[1]));
+            console.log(searchparams.search.split("=")[1])
+        }
+        dispatch(getVideogames({query:searchparams.search.split("=")[1],page,...filterAndOrder}))
+    },[search,filterAndOrder,page])
+    
+    let arrVideogames='';
+    if(videogames.number===NUMBER_200)
+    {
+        arrVideogames = videogames.videogames.map((element,index)=>
+        {
+            //console.log(element)
+            let name=element.name;
+            let img=element.background_image;
+            let genres=[]
+            if(element.genres)genres=element.genres.split(',');
+            return (<Videogame key={"vgCard"+index} id={element.id} index={index} name={name} img={img} genres={genres}/>)
+        });
+    }
+    else if(videogames.number===NUMBER_000)
+    {
+        arrVideogames=<p id='searchingMessage'>OH! UwU, we are Wowking VEWY HAWD seaWching uwu, pls b patient OnO</p>
+    }
+    else if(videogames.number===NUMBER_404)
+    {
+        arrVideogames=<p id="404Message">OOPSIE WOOPSIE!! UwU We made a fucky wucky!! A wittle fucko boingo! The code monkeys at our headquarters are working VEWY HAWD to fix this!</p>
+    }
+    console.log(arrVideogames)
     return(
         <div id='videogamesInnerCont'>
             {arrVideogames}

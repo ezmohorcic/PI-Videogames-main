@@ -10,18 +10,6 @@ import { PageButtons } from './PageButtons/PageButtons.jsx';
 
 export function ShowAll() //Solo se encarga de ?search= NADIE FUERA DE VIDEOGAMES MANDA PETICION GETVIDEOGAMES
 {
-    const searchparams=useLocation();
-    const dispatch=useDispatch()
-
-    useEffect(()=>
-    {
-        if(searchparams.search)
-        {   
-            //param= searchparams.search.split("=")[1];
-            dispatch(setSearch(searchparams.search.split("=")[1]));
-        }
-    },[]);
-
     return(
         <div id='showAllContainer'>
             <div id="optionsContainer">

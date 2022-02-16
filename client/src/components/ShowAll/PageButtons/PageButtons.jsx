@@ -16,7 +16,7 @@ export function PageButtons()
 
     function handleNextPage()
     {
-        if(videogames.length==15){dispatch(nextPage())}
+        if(videogames.videogames.length==15){dispatch(nextPage())}
     }
 
     const dispatch=useDispatch()

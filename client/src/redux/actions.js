@@ -1,4 +1,4 @@
-import { ALL_GENRES, ADD_GENRE, SHOW_VIDEOGAMES_PAGE, DETAIL_VIDEOGAME, CHANGE_ORDER, CHANGE_FILTER, CHANGE_FILT_ORD, NEW_PAGE, NEW_SEARCH, ADDED_ID, NEXT_PAGE, LAST_PAGE } from "../consts";
+import { ALL_GENRES, ADD_GENRE, SHOW_VIDEOGAMES_PAGE, DETAIL_VIDEOGAME, CHANGE_ORDER, CHANGE_FILTER, CHANGE_FILT_ORD, NEW_PAGE, NEW_SEARCH, ADDED_ID, NEXT_PAGE, LAST_PAGE, NUMBER_404, NUMBER_200, SET_SEARCHING_000 } from "../consts";
 
 export function dummy (payload)
 {
@@ -48,10 +48,18 @@ export function getVideogames({query=null,page=null,filter=null,order=null})
             console.log(q)
             const response = await fetch("http://localhost:3001/videogames"+q); //+q+p+filterType+filterGenres,orderType
             const json= await response.json();
-            dispatch({type:SHOW_VIDEOGAMES_PAGE,payload:json});
+            let number=NUMBER_404;
+            json.length==0? number=NUMBER_404 : number=NUMBER_200;
+            console.log(number)
+            dispatch({type:SHOW_VIDEOGAMES_PAGE,payload:{videogames:json,number}});
         }
         catch(e){console.log(e)}
     }
+}
+
+export function setVideogamesPorBuscando()
+{
+    return({type:SET_SEARCHING_000})
 }
 //----Videogames----
 

@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import  {ALL_GENRES, ADD_GENRE, SHOW_VIDEOGAMES_PAGE, DETAIL_VIDEOGAME, CHANGE_FILT_ORD, CHANGE_FILTER, CHANGE_ORDER, NEW_PAGE, NEW_SEARCH, ADDED_ID, LAST_PAGE, NEXT_PAGE } from "../consts.js";
+import  {ALL_GENRES, ADD_GENRE, SHOW_VIDEOGAMES_PAGE, DETAIL_VIDEOGAME, CHANGE_FILT_ORD, CHANGE_FILTER, CHANGE_ORDER, NEW_PAGE, NEW_SEARCH, ADDED_ID, LAST_PAGE, NEXT_PAGE, NUMBER_000, SET_SEARCHING_000 } from "../consts.js";
 
 function dummy(state={},action)
 {
@@ -14,15 +14,19 @@ function genres(state=[],action)
     else return state;
 }
 
-function videogames (state=[],action)
+function videogames (state={videogames:[],number:NUMBER_000},action)
 {
     if(action.type===SHOW_VIDEOGAMES_PAGE)
     {
-        return action.payload;
+        return {...state,...action.payload};
+    }
+    else if(action.type===SET_SEARCHING_000)
+    {
+        return {...state,number:NUMBER_000}
     }
     else return state;
 }
-
+//owo{a:1,b:2} ono={a:4}
 function detailVideogames (state={},action)
 {
     if(action.type===DETAIL_VIDEOGAME)
@@ -51,7 +55,7 @@ function page(state=0,action)
 
 function search(state="",action)
 {
-    if(action===NEW_SEARCH){
+    if(action.type===NEW_SEARCH){
         console.log(action)
         return action.payload}
     else return state;

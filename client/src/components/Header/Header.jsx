@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { Link } from 'react-router-dom';
 import { setOrderAndFilter, setPage, setSearch } from '../../redux/actions';
 
-export function Header(props)
+export function Header()
 {
     const dispatch=useDispatch();
 
