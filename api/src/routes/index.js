@@ -13,12 +13,13 @@ async function ALTERgetVideogames(name,page=0,filter,order)
 {
     //--me traigo todo de la db y api--
     console.log("antes de findAll dbraw")
-    let dbRaw = await Videogame.findAll(); //busco los juegos en db
+    let dbRaw = await Videogame.findAll({include:Genre}); //busco los juegos en db
     //console.log(dbRaw)
     if(name){if(dbRaw)dbRaw=dbRaw.filter(vdg => vdg.name.toLowerCase().includes(name.toLowerCase()));}//filtro por nombre en base de datos}
 
     var apiRaw =[];
-    for(let i=1;i<6;i++) //Traigo 100 juegos por indicado en ReadMe
+    console.log("antes del for de la api")
+    for(let i=1;i<3;i++) //Traigo 100 juegos por indicado en ReadMe
     {
         let temp={};
         if(name){ temp = await fetch(`https://api.rawg.io/api/games?search=${name}&key=${api_key}&page=${i}`);} //si hay que filtrar por nombre
@@ -27,24 +28,41 @@ async function ALTERgetVideogames(name,page=0,filter,order)
         temp=temp.results;
         if(!temp){temp=[];}
         apiRaw=[...apiRaw,...temp];
+        console.log(i)
     }
-
+    console.log("despues del for")
     //--code con order/filtro
     
     if(filter) // genero || db O api  
     {
+        console.log("dentro de filter")
         switch (filter.type) {
             case "genero":
-                dbRaw = await Videogame.findAll(
+                console.log("caso genero")
+                /*dbRaw = await Videogame.findAll(
                     {
                         include:[{
                             model: Genre,
                             where:{name:filter.payload},
                             attributes:['name']
                         }]
-                    });
-                //console.log(dbRaw)
+                    });*/
+                console.log(dbRaw);
                 //dbRaw=dbRaw.filter(vd => vd.genres.includes(filter.payload)); //revisar esto, ver como filtrar DB
+                
+                dbRaw=dbRaw.filter(vd=>
+                    {
+                        let flag=false;
+                        //console.log(vd.name)
+                        vd.genres.forEach(element => 
+                        {
+                            if(element.name==filter.payload)
+                            {
+                                flag=true;
+                            }
+                        });
+                        return flag;
+                    });
                 apiRaw = apiRaw.filter(vd=>
                     {
                         let flag=false;
@@ -61,6 +79,7 @@ async function ALTERgetVideogames(name,page=0,filter,order)
             break;
         
             case "dbOapi":
+                console.log("caso dbOapi")
                     if(filter.payload=="db"){apiRaw=[];}
                     else if(filter.payload=="api"){dbRaw=[];}
             break;
@@ -71,11 +90,12 @@ async function ALTERgetVideogames(name,page=0,filter,order)
     }
 
     let outRaw = [...dbRaw,...apiRaw];
-    //let logg= outRaw.map(vg=>vg.name);
+    outRaw.map(vg=>console.log(vg.name));
     //console.log(logg)
 
     if(order) // alfabetico || rating
     {
+        console.log("dentro de order")
         switch (order) {
             case 'alfabetico':
                 outRaw.sort(function(a,b)
@@ -84,9 +104,11 @@ async function ALTERgetVideogames(name,page=0,filter,order)
                     if(a.name > b.name){return 1;}
                     return 0;
                 });
+                console.log("saliendo de alf")
             break;
 
             case 'rating':
+                console.log("ratingg")
                 outRaw.sort((a,b)=>b.rating-a.rating);
             break;
         
@@ -210,7 +232,7 @@ router.get('/videogames',async function(req,res)
         let page=parseInt(req.query.page);
         let order = req.query.order;
         let videogames = await ALTERgetVideogames(name,page,filter,order);
-        console.log(videogames)
+        //console.log(videogames)
         return res.json(videogames);
     }
     catch(e){console.log(e);}

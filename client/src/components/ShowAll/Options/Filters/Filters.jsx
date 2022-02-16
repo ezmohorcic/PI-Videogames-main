@@ -29,12 +29,18 @@ export function Filters(props) //Solo se encarga de
             </select>
     }
 
+    function handleNone()
+    {
+        setTypeFilter('');
+        dispatch(setFilter({}));
+    }
+
     return(
         <div id="filterInnerCont">
             <h3>FILTER!</h3>
             <label htmlFor="">DB o Api<input type="radio"  name="tipoFiltro" id={FILTER_TYPE_DBOAPI} onChange={(e)=>setTypeFilter(FILTER_TYPE_DBOAPI)} /></label>
             <label htmlFor="">Genero<input type="radio"  name="tipoFiltro" id={FILTER_TYPE_GENRES} onChange={(e)=>setTypeFilter(FILTER_TYPE_GENRES)} /></label>
-            <label htmlFor="">Ninguna<input type="radio"  name="tipoFiltro" id="noneFiltro" onChange={(e)=>setTypeFilter('')} /></label>
+            <label htmlFor="">Ninguna<input type="radio"  name="tipoFiltro" id="noneFiltro" onChange={(e)=>handleNone()} /></label>
             {dropDownFilter}
         </div>
     )
