@@ -8,7 +8,6 @@ export function Videogame(props)
     {
         return(<p key={"genreCard_"+props.index+'_'+index} className='genresCard'>{element}</p>)
     });
-
     return(
         <div id='videogameContainer'>
             <Link to={"/videogame/"+props.id}>

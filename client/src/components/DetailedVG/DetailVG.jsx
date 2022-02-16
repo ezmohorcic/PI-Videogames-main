@@ -1,16 +1,16 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from 'react-router-dom';
+import { NUMBER_200, NUMBER_404 } from '../../consts';
 import { getVideogameById } from '../../redux/actions';
 
-export function DetailVG(props)
+export function DetailVG()
 {
 
     const searchparams=useLocation();
     
     const dispatch=useDispatch()
     const details= useSelector((state)=>state.detailVideogames)
-    console.log(details)
     useEffect(()=>
     {
         if(!details.hasOwnProperty("id"))dispatch(getVideogameById(searchparams.pathname.split('/')[2]))
@@ -21,31 +21,53 @@ export function DetailVG(props)
     let platforms=[];
     let genres=[];
     let img='';
+    
 
-    if(details.hasOwnProperty("id"))
+    if(details.number===NUMBER_200)
     {
-        if(details.description.includes("<p>"))
+        if(details.videogame.description.includes("<p>"))
         {
-            rawDescription=details.description.slice(3,-4).split("<br />\n");
+            rawDescription=details.videogame.description.slice(3,-4).split("<br />\n");
             description = rawDescription.map((element,index)=><p key={"description_"+index}>{"\n"+element}</p>);
         }
-        else{description=<p>{details.description}</p>;}
+        else{description=<p>{details.videogame.description}</p>;}
       
-        platforms=details.platforms.split(",").map((element,index)=><p key={"detailed_Plat_"+index}>{element}</p>)
+        platforms=details.videogame.platforms.split(",").map((element,index)=><p key={"detailed_Plat_"+index}>{element}</p>)
     
-        if(details.genres)genres=details.genres.split(",").map((element,index)=><p key={"detailed_Genre_"+index}>{element}</p>)
+        if(details.videogame.genres)genres=details.videogame.genres.split(",").map((element,index)=><p key={"detailed_Genre_"+index}>{element}</p>)
         
-        details.background_image? img=details.background_image : img="../../../public/alt_img_joystick.jpg"
+        img=details.videogame.background_image;
+        
+        return(
+            <div id='detailedContainer'>
+                <h1>{details.name}</h1>
+                <div><img width={"500px"} height={"400px"} src={img} /></div>
+                {description}
+                <p>Rating:{details.rating}</p>
+                {platforms}
+                {genres}
+            </div>
+        )
+    }
+    else if(details.number===NUMBER_404)
+    {
+        return<div id='detailedContainer'><p>OOPSIE WOOPSIE!! UwU We made a fucky wucky!! A wittle fucko boingo! The code monkeys at our headquarters are working VEWY HAWD to fix this!</p></div>
+    }
+    else if(details.number===NUMBER_200)
+    {
+        return<div id='detailedContainer'><p>OH! UwU, we are Wowking VEWY HAWD seaWching uwu, pls b patient OnO</p></div>
     }
 
-    return(
+    /*return(
         <div id='detailedContainer'>
             <h1>{details.name}</h1>
-            <img width={"500px"} height={"400px"} src={img} alt="../../../public/alt_img_joystick.jpg"/>
+            <img width={"500px"} height={"400px"} src={img} />
             {description}
             <p>Rating:{details.rating}</p>
             {platforms}
             {genres}
         </div>
-    )
+    )*/
+
+    return(<div id='detailedContainer'><p>OH! UwU, we are Wowking VEWY HAWD seaWching uwu, pls b patient OnO</p></div>)
 }

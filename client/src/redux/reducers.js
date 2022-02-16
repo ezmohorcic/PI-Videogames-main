@@ -27,12 +27,11 @@ function videogames (state={videogames:[],number:NUMBER_000},action)
     else return state;
 }
 //owo{a:1,b:2} ono={a:4}
-function detailVideogames (state={},action)
+function detailVideogames (state={videogame:{},number:NUMBER_000},action)
 {
     if(action.type===DETAIL_VIDEOGAME)
     {
-        console.log(action.payload)
-        return action.payload;
+        return {...state,...action.payload};
     }
     else return state;
 }

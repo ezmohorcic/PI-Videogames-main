@@ -156,7 +156,7 @@ async function getVideogameByID(idVideogame)
         {
             
             const videogame= await Videogame.findByPk(idVideogame); //findByPk == busqueda por primary key
-
+            videogame.dataValues.background_image="./alt_img_joystick.jpg"
             
 
             return videogame;

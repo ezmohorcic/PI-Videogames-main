@@ -51,7 +51,6 @@ export function Videogames()
     {
         arrVideogames=<p id="404Message">OOPSIE WOOPSIE!! UwU We made a fucky wucky!! A wittle fucko boingo! The code monkeys at our headquarters are working VEWY HAWD to fix this!</p>
     }
-    console.log(arrVideogames)
     return(
         <div id='videogamesInnerCont'>
             {arrVideogames}

@@ -50,7 +50,6 @@ export function getVideogames({query=null,page=null,filter=null,order=null})
             const json= await response.json();
             let number=NUMBER_404;
             json.length==0? number=NUMBER_404 : number=NUMBER_200;
-            console.log(number)
             dispatch({type:SHOW_VIDEOGAMES_PAGE,payload:{videogames:json,number}});
         }
         catch(e){console.log(e)}
@@ -74,10 +73,16 @@ export function getVideogameById(id)
         {
             console.log("mandando id a server: "+id)
             const response = await fetch("http://localhost:3001/videogames/"+id);
-            const json= await response.json();
-            dispatch({type:DETAIL_VIDEOGAME,payload:json});
+            let json= await response.json();
+            let number=NUMBER_404;
+            json? number=NUMBER_200 : number=NUMBER_404;
+            dispatch({type:DETAIL_VIDEOGAME,payload:{videogame:json,number}});
         }
-        catch(e){console.log(e)}
+        catch(e)
+        {
+            console.log(e);
+            dispatch({type:DETAIL_VIDEOGAME,payload:{videogame:{},number:NUMBER_404}});
+        }
     }
 }
 
@@ -92,6 +97,7 @@ export function addVideogames(payload)
     {
         try
         {
+            
             const response = await fetch("http://localhost:3001/videogame",
             {
                 method: "POST",
@@ -100,6 +106,7 @@ export function addVideogames(payload)
                   "Content-type": "application/json; charset=UTF-8",
                 },
             });
+            console.log(response)
             const json= await response.json();
             console.log(json)
             dispatch({type:ADDED_ID,payload:json.id});
