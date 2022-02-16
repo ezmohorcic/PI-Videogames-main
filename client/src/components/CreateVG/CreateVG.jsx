@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from 'react-router-dom';
 
@@ -11,6 +12,7 @@ export function CreateVG(props)
     const addedId=useSelector(state=>state.addedvideogame);
     if(genres.length===0){dispatch(getAllGenres())}
     
+    useEffect(()=>{dispatch(getAllGenres())},[])
 
     const [newGame,setNewGame]=useState({name:"",description:"",releaseDate:"",rating:0,platforms:[],genres:[]});
     const [addingPlat,setAddingPlat]=useState("");

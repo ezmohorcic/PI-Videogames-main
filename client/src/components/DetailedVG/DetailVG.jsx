@@ -22,6 +22,7 @@ export function DetailVG()
     let genres=[];
     let img='';
     
+    console.log(details)
 
     if(details.number===NUMBER_200)
     {
@@ -40,7 +41,7 @@ export function DetailVG()
         
         return(
             <div id='detailedContainer'>
-                <h1>{details.name}</h1>
+                <h1>{details.videogame.name}</h1>
                 <div><img width={"500px"} height={"400px"} src={img} /></div>
                 {description}
                 <p>Rating:{details.rating}</p>
