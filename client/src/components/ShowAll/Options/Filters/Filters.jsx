@@ -3,8 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { FILTER_TYPE_DBOAPI, FILTER_TYPE_GENRES } from '../../../../consts';
 import { getAllGenres, setFilter, setVideogamesPorBuscando } from '../../../../redux/actions';
 
+import './Filters.css'
 
-export function Filters(props) //Solo se encarga de 
+export function Filters() //Solo se encarga de 
 {
 
     const dispatch=useDispatch()
@@ -50,11 +51,14 @@ export function Filters(props) //Solo se encarga de
 
     return(
         <div id="filterInnerCont">
-            <h3>FILTER!</h3>
-            <label htmlFor="">DB o Api<input type="radio"  name="tipoFiltro" id={FILTER_TYPE_DBOAPI} onChange={(e)=>setTypeFilter(FILTER_TYPE_DBOAPI)} /></label>
-            <label htmlFor="">Genero<input type="radio"  name="tipoFiltro" id={FILTER_TYPE_GENRES} onChange={(e)=>setTypeFilter(FILTER_TYPE_GENRES)} /></label>
-            <label htmlFor="">Ninguna<input type="radio"  name="tipoFiltro" id="noneFiltro" onChange={(e)=>handleNone()} /></label>
-            {dropDownFilter}
+            <h3 id='h3Filter'>FILTERS owo!</h3>
+            <div id="allFilters">
+                <div className="filterShell"><label htmlFor="" className='filterLabel'>DB o Api</label><input type="radio" className='filterTypeRadio'  name="tipoFiltro" id={FILTER_TYPE_DBOAPI} onChange={(e)=>setTypeFilter(FILTER_TYPE_DBOAPI)} /></div>
+                <div className="filterShell"><label htmlFor="" className='filterLabel'>Genero</label><input type="radio" className='filterTypeRadio' name="tipoFiltro" id={FILTER_TYPE_GENRES} onChange={(e)=>setTypeFilter(FILTER_TYPE_GENRES)} /></div>
+                <div className="filterShell"><label htmlFor="" className='filterLabel'>Ninguna</label><input type="radio" className='filterTypeRadio' name="tipoFiltro" id="noneFiltro" onChange={(e)=>handleNone()} /></div>
+                <div id="filterDropDownShell">{dropDownFilter}</div>
+            </div>
+
         </div>
     )
 }

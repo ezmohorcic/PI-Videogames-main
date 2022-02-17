@@ -6,6 +6,8 @@ import { getVideogames, setSearch } from '../../../redux/actions';
 import { useLocation } from 'react-router-dom';
 import { Videogame } from './Videogame/Videogame';
 
+import './Videogames.css'
+
 
 export function Videogames()
 {

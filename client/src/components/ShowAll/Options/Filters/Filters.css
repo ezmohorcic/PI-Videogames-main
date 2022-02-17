@@ -1,0 +1,45 @@
+#filterInnerCont{
+    margin-top: 10vh;
+}
+
+#h3Filter{
+    color: #4c96d5;
+    font-weight: bolder;
+    font-style: italic;
+    height: 4vh;
+    margin-bottom: 0.5vh;
+    margin-top: 0.5vh;
+}
+
+#allFilters{
+    display: flex;
+    flex-direction: column;
+    height: 6vh;
+    
+}
+.filterShell{
+    width: 100%;
+    height: 4vh;
+    padding-top: 1.2vh;
+}
+.filterLabel{
+    color: white;
+    
+}
+.filterTypeRadio{
+    margin-top: 1vh;
+    color: white;
+
+}
+
+#filterDropDownShell{
+    width: 100%;
+    height: 4vh;
+    padding-top: 1.2vh;
+}
+#filterSelect{
+    margin-top: 0.6vh;
+    height: 3vh;
+
+    border-radius: 1vh;
+}

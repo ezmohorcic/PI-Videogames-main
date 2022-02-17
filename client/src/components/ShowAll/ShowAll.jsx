@@ -8,20 +8,24 @@ import { useLocation } from 'react-router-dom';
 import { setSearch } from '../../redux/actions.js';
 import { PageButtons } from './PageButtons/PageButtons.jsx';
 
+import './ShowAll.css'
+
 export function ShowAll() //Solo se encarga de ?search= NADIE FUERA DE VIDEOGAMES MANDA PETICION GETVIDEOGAMES
 {
     return(
         <div id='showAllContainer'>
-            <div id="optionsContainer">
-                <div id="filterShell">
-                    <Filters/>
+            <div id="showAllCards">
+                <div id="optionsContainer">
+                    <div id="orderShell">
+                        <Order/>
+                    </div>
+                    <div id="filterShell">
+                        <Filters/>
+                    </div>
                 </div>
-                <div id="orderShell">
-                    <Order/>
+                <div id='videogamesWholeContainer'>
+                    <Videogames/>
                 </div>
-            </div>
-            <div id='videogamesWholeContainer'>
-                <Videogames/>
             </div>
             <PageButtons/>
         </div>

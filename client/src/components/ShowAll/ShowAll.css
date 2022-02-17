@@ -1,0 +1,27 @@
+#showAllContainer{
+    background-color: #181a1b;
+}
+#showAllCards{
+    display: flex;
+    flex-direction: row;
+}
+#optionsContainer{
+    display: flex;
+    flex-direction:column;
+
+    height: 10vh;
+    width: 15vw;
+}
+#filterShell{
+    width: 100%;
+    text-align: center;
+}
+#orderShell{
+    width: 100%;
+
+    text-align: center;
+}
+
+#videogamesWholeContainer{
+    width: 85vw;
+}

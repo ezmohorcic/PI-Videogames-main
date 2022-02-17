@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { detailedSearching } from '../../../../redux/actions';
 
+import './Videogame.css'
 
 export function Videogame(props)
 {
@@ -13,11 +14,11 @@ export function Videogame(props)
         return(<p key={"genreCard_"+props.index+'_'+index} className='genresCard'>{element}</p>)
     });
     return(
-        <div id='videogameContainer' >
+        <div className='videogameContainer' >
             <Link to={"/videogame/"+props.id} onClick={dispatch(detailedSearching())}>
-                <p id="cardName">{props.name}</p>
-                <div className='imgHolderCardVG'><img width={"500px"} height={"400px"} src={props.img} alt='./alt_img_joystick.jpg' /></div>
-                {arrGenres}
+                <p className="cardName">{props.name}</p>
+                <div className='imgHolderCardVG'><img className='imgCardVG' src={props.img} alt='./alt_img_joystick.jpg' /></div>
+                <div className="genresCardShell">{arrGenres}</div>
             </Link>
         </div>
     )

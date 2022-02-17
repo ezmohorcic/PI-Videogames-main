@@ -3,6 +3,8 @@ import { useDispatch } from "react-redux";
 import { Link } from 'react-router-dom';
 import { setOrderAndFilter, setPage, setSearch } from '../../redux/actions';
 
+import './Header.css';
+
 export function Header()
 {
     const dispatch=useDispatch();
@@ -17,13 +19,12 @@ export function Header()
     }
     
     let button;
-    if(innersearch.length>3){button=<Link to={"/showAll?search="+innersearch} onClick={searching}>owo!</Link>}
-    else{button=<p>owo!</p>;}
+    if(innersearch.length>3){button=<Link className='dataSearch' to={"/showAll?search="+innersearch} onClick={searching}>owo!</Link>}
+    else{button="owo!";}
 
     return(
         <div id='headerContainer'>
-            <Link to={"/showAll"}>Home owo!</Link>
-            <div id="headerImgShell"><p>owo img!</p></div>
+            <div id="headerImgShell"><Link to={"/showAll"} id="linkLogoShell"><img id='headerLogoShell' src="/kisspng_joystick.png"/></Link></div>
             <div id="inputHeaderShell">
                 <div id="searchTextContainer">
                     <input type="text" name="searchText" id="searchText" value={innersearch} onChange={(e)=>setInnerSearch(e.target.value)}/>
@@ -32,8 +33,10 @@ export function Header()
                     <button id="searchBut">{button}</button>
                 </div>
             </div>
-            <Link to={"/CreateVG"}>Add game to database owo! </Link>
-            <Link to={"/ShowGenres"}>Or to All Genres! </Link>
+            <div id='dataBaseHeader'>
+                <div className="goToLinkHeader leftGoTo"><Link className='dataBaseLink' to={"/CreateVG"}> database owo! </Link></div>
+                <div className="goToLinkHeader rightGoTo"><Link className='dataBaseLink' to={"/ShowGenres"}>owo Genres! </Link></div>
+            </div>
         </div>
     )
 }
