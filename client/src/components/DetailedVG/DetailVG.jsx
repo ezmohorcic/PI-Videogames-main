@@ -72,3 +72,6 @@ export function DetailVG()
 
     return(<div id='detailedContainer'><p>OH! UwU, we are Wowking VEWY HAWD seaWching uwu, pls b patient OnO</p></div>)
 }
+
+//.\alt_img_joystick.jpg
+//.\DetailVG.jsx

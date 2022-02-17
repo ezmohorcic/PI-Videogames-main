@@ -16,7 +16,7 @@ export function Filters(props) //Solo se encarga de
 
     function handleFilter(e)
     {
-        
+        dispatch(setVideogamesPorBuscando());
         dispatch(setFilter({type:"genero",payload:e.target.value}));
 
     }

@@ -22,6 +22,7 @@ export function Header()
 
     return(
         <div id='headerContainer'>
+            <Link to={"/showAll"}>Home owo!</Link>
             <div id="headerImgShell"><p>owo img!</p></div>
             <div id="inputHeaderShell">
                 <div id="searchTextContainer">
@@ -32,7 +33,7 @@ export function Header()
                 </div>
             </div>
             <Link to={"/CreateVG"}>Add game to database owo! </Link>
-            <Link to={"/ShowGenre"}>Or to All Genres! </Link>
+            <Link to={"/ShowGenres"}>Or to All Genres! </Link>
         </div>
     )
 }

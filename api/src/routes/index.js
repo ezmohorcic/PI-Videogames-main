@@ -148,6 +148,7 @@ async function getVideogameByID(idVideogame)
         if(raw.description) out.description=raw.description;
         typeof raw.platforms === "object"? out.platforms=raw.platforms.map(element=>element.platform.name).join(',') : out.platforms=raw.platforms;
         if(raw.name) out.name=raw.name;
+        if(raw.rating) out.rating=raw.rating;
         if(raw.genres)out.genres=raw.genres.map(element=>element.name).join(',')
         raw.background_image? out.background_image=raw.background_image : out.background_image="./alt_img_joystick.jpg";
         console.log(out)
@@ -158,10 +159,15 @@ async function getVideogameByID(idVideogame)
         console.log("es una id de database");
         try
         {
-            
-            const videogame= await Videogame.findByPk(idVideogame); //findByPk == busqueda por primary key
+            const videogame= await Videogame.findOne(
+                {
+                    where:{id:idVideogame},
+                    include:{model: Genre,}
+                })
+            //const videogame= await Videogame.findByPk(idVideogame); //findByPk == busqueda por primary key
             videogame.dataValues.background_image="./alt_img_joystick.jpg"
-            
+            videogame.dataValues.genres=videogame.dataValues.genres.map(genre=>genre.name).join(',');
+            console.log(videogame)
 
             return videogame;
         }
