@@ -31,7 +31,8 @@ export function Header()
                     <button id="searchBut">{button}</button>
                 </div>
             </div>
-            <Link to={"/CreateVG"}>Add game to database owo!</Link>
+            <Link to={"/CreateVG"}>Add game to database owo! </Link>
+            <Link to={"/ShowGenre"}>Or to All Genres! </Link>
         </div>
     )
 }

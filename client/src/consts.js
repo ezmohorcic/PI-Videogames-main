@@ -19,3 +19,4 @@ export const NUMBER_404="NUMBER_404"; //no exito en traer
 export const NUMBER_200="NUMBER_200"; //exito en traer
 export const NUMBER_000="NUMBER_000"; //buscando
 export const SET_SEARCHING_000="SET_SEARCHING_000";
+export const SEARCHING_DETAILED="SEARCHING_DETAILED";

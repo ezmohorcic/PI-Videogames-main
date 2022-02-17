@@ -1,18 +1,22 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { detailedSearching } from '../../../../redux/actions';
 
 
 export function Videogame(props)
 {
+    const dispatch=useDispatch();
+
     let arrGenres=props.genres.map((element,index)=>
     {
         return(<p key={"genreCard_"+props.index+'_'+index} className='genresCard'>{element}</p>)
     });
     return(
-        <div id='videogameContainer'>
-            <Link to={"/videogame/"+props.id}>
+        <div id='videogameContainer' >
+            <Link to={"/videogame/"+props.id} onClick={dispatch(detailedSearching())}>
                 <p id="cardName">{props.name}</p>
-                <div className='imgHolderCardVG'><img width={"500px"} height={"400px"} src={props.img} alt='../../../../../public/alt_img_joystick.jpg' /></div>
+                <div className='imgHolderCardVG'><img width={"500px"} height={"400px"} src={props.img} alt='./alt_img_joystick.jpg' /></div>
                 {arrGenres}
             </Link>
         </div>

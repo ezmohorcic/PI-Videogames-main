@@ -78,11 +78,11 @@ async function ALTERgetVideogames(name,page=0,filter,order)
                     });
             break;
         
-            case "dbOapi":
+            /*case "dbOapi":
                 console.log("caso dbOapi")
                     if(filter.payload=="db"){apiRaw=[];}
                     else if(filter.payload=="api"){dbRaw=[];}
-            break;
+            break;*/
 
             default:
             break;
@@ -100,8 +100,8 @@ async function ALTERgetVideogames(name,page=0,filter,order)
             case 'alfabetico':
                 outRaw.sort(function(a,b)
                 {
-                    if(a.name < b.name){return -1;}
-                    if(a.name > b.name){return 1;}
+                    if(a.name.toLowerCase() < b.name.toLowerCase()){return -1;}
+                    if(a.name.toLowerCase() > b.name.toLowerCase()){return 1;}
                     return 0;
                 });
                 console.log("saliendo de alf")
@@ -117,8 +117,12 @@ async function ALTERgetVideogames(name,page=0,filter,order)
         }
     }
 
-
-    let out = outRaw.slice(page*15,(page+1)*15);// || page=0 => 0*15 a (1*15)-1 == 0 a 14 || page=1 => 1*15 a ((1+1)*15)-1 == 15 a 29 ||
+    let out =[];
+    if(filter) // || page=0 => 0*15 a (1*15)-1 == 0 a 14 || page=1 => 1*15 a ((1+1)*15)-1 == 15 a 29 ||
+    {
+        filter.type=="dbOapi"? out=outRaw : out=outRaw.slice(page*15,(page+1)*15);
+    }
+    else {out = outRaw.slice(page*15,(page+1)*15);}
     out = out.map((element)=>
     {
         let partial={};

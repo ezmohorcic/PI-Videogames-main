@@ -1,4 +1,4 @@
-import { ALL_GENRES, ADD_GENRE, SHOW_VIDEOGAMES_PAGE, DETAIL_VIDEOGAME, CHANGE_ORDER, CHANGE_FILTER, CHANGE_FILT_ORD, NEW_PAGE, NEW_SEARCH, ADDED_ID, NEXT_PAGE, LAST_PAGE, NUMBER_404, NUMBER_200, SET_SEARCHING_000 } from "../consts";
+import { ALL_GENRES, ADD_GENRE, SHOW_VIDEOGAMES_PAGE, DETAIL_VIDEOGAME, CHANGE_ORDER, CHANGE_FILTER, CHANGE_FILT_ORD, NEW_PAGE, NEW_SEARCH, ADDED_ID, NEXT_PAGE, LAST_PAGE, NUMBER_404, NUMBER_200, SET_SEARCHING_000, SEARCHING_DETAILED, NUMBER_000 } from "../consts";
 
 export function dummy (payload)
 {
@@ -47,8 +47,23 @@ export function getVideogames({query=null,page=null,filter=null,order=null})
             if(order){q= q+'&order='+order.type;}
             console.log(q)
             const response = await fetch("http://localhost:3001/videogames"+q); //+q+p+filterType+filterGenres,orderType
-            const json= await response.json();
+            let json= await response.json();
+            if(filter)
+            {
+                if(filter.type=== "dbOapi")
+                {
+                    console.log("filtro en dbOapi")
+                    if(filter.payload==="db"){
+                        console.log("filtro en db")
+                        json=json.filter(vg=> typeof vg.id == "string")}
+                    else if(filter.payload==="api"){
+                        console.log("filtro en api")
+                        json=json.filter(vg=> typeof vg.id == "number")}
+                    json=json.slice(page*15,(page+1)*15);
+                }
+            }
             let number=NUMBER_404;
+            console.log(json)
             json.length==0? number=NUMBER_404 : number=NUMBER_200;
             dispatch({type:SHOW_VIDEOGAMES_PAGE,payload:{videogames:json,number}});
         }
@@ -84,6 +99,11 @@ export function getVideogameById(id)
             dispatch({type:DETAIL_VIDEOGAME,payload:{videogame:{},number:NUMBER_404}});
         }
     }
+}
+
+export function detailedSearching()
+{
+    return {type:SEARCHING_DETAILED, payload:{videogame:{},number:NUMBER_000}}
 }
 
 //----Detailed Videogames----

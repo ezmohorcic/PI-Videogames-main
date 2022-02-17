@@ -44,7 +44,7 @@ export function DetailVG()
                 <h1>{details.videogame.name}</h1>
                 <div><img width={"500px"} height={"400px"} src={img} /></div>
                 {description}
-                <p>Rating:{details.rating}</p>
+                <p>Rating:{details.videogame.rating}</p>
                 {platforms}
                 {genres}
             </div>
