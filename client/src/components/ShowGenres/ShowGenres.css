@@ -1,0 +1,43 @@
+#showGenresContainer{
+    width: 60vw;
+    margin: 2vh 20vw 0 20vw;
+
+    border: 0.3vw solid #3c4042;
+    border-radius: 2vw;
+}
+#genresh1{
+    text-align: center;
+    color: #4c96d5;
+}
+
+#showGenresShell{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+
+    width: 50vw;
+    height: 60vh;
+    margin: 0 5vw 0 5vw;
+}
+
+.genreButCont{
+    height: 4vh;
+    margin: 0 1vw 0 1vw;
+
+    color: black;
+    background-color: #3c4042;
+
+    border-radius: 2vh;
+
+}
+
+.genreButLink{
+    margin: 1vh 0 1vh 0 ;
+    padding: 0 1vw 0 1vw;
+
+    text-decoration: none;
+    color: black;
+    font-size: 1.6em;
+    font-weight: bold;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
