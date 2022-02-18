@@ -1,8 +1,42 @@
 .videogameContainer{
     width: 35vw;
-    height: 50vh;
+    height: 55vh;
+    margin: 1vh 1vw 1vh 1vw;
+
+    text-decoration: none;
+
+    border: 2px solid lightgray;
+    border-radius: 0.5vh;
+    transition: 0.5s;
 }
+.videogameContainer:hover{
+    border-color: white;
+}
+
+.linkCardVG{
+    text-decoration: none;
+    text-align: center;
+    color: lightgray;
+
+    transition: 0.5s;
+}
+.linkCardVG:hover{
+    color: white;
+    outline: blue;
+}
+
+.linkCardVG:hover>.imgHolderCardVG{
+    outline: blue;
+}
+
+.cardName{
+    text-decoration: none;
+    text-align: center;
+}
+
+
 .imgHolderCardVG{
+    margin: 0 auto 0 auto;
     width: 30vw;
     height: 16.88vw;
 }
@@ -11,10 +45,14 @@
     height: 100%;
 }
 
+
+.genresCardShell{
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+
+}
 .genresCard{
 
 }
 
-.genresCardShell{
-    
-}

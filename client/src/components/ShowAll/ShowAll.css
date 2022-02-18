@@ -1,4 +1,5 @@
 #showAllContainer{
+    padding-top: 2vh;
     background-color: #181a1b;
 }
 #showAllCards{
@@ -24,4 +25,5 @@
 
 #videogamesWholeContainer{
     width: 85vw;
+    padding: 0 3.5vw 0 3.5vw;
 }
