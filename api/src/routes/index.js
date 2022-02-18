@@ -165,7 +165,7 @@ async function getVideogameByID(idVideogame)
                     include:{model: Genre,}
                 })
             //const videogame= await Videogame.findByPk(idVideogame); //findByPk == busqueda por primary key
-            videogame.dataValues.background_image="./alt_img_joystick.jpg"
+            videogame.dataValues.background_image="/alt_img_joystick.jpg"
             videogame.dataValues.genres=videogame.dataValues.genres.map(genre=>genre.name).join(',');
             console.log(videogame)
 

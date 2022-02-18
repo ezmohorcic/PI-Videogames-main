@@ -4,6 +4,8 @@ import { useLocation } from 'react-router-dom';
 import { NUMBER_200, NUMBER_404 } from '../../consts';
 import { getVideogameById } from '../../redux/actions';
 
+import './DetailVG.css'
+
 export function DetailVG()
 {
 
@@ -41,8 +43,8 @@ export function DetailVG()
         
         return(
             <div id='detailedContainer'>
-                <h1>{details.videogame.name}</h1>
-                <div><img width={"500px"} height={"400px"} src={img} /></div>
+                <h1 id="detailName">{details.videogame.name}</h1>
+                <div id='detailedImgShell'><img id='detailedImg' src={img} /></div>
                 {description}
                 <p>Rating:{details.videogame.rating}</p>
                 {platforms}
@@ -52,11 +54,11 @@ export function DetailVG()
     }
     else if(details.number===NUMBER_404)
     {
-        return<div id='detailedContainer'><p>OOPSIE WOOPSIE!! UwU We made a fucky wucky!! A wittle fucko boingo! The code monkeys at our headquarters are working VEWY HAWD to fix this!</p></div>
+        return<p id='searchingMessageDet'>OOPSIE WOOPSIE!! UwU We made a fucky wucky!! A wittle fucko boingo! The code monkeys at our headquarters are working VEWY HAWD to fix this!</p>
     }
     else if(details.number===NUMBER_200)
     {
-        return<div id='detailedContainer'><p>OH! UwU, we are Wowking VEWY HAWD seaWching uwu, pls b patient OnO</p></div>
+        return<p id='Message404Det'>OH! UwU, we are Wowking VEWY HAWD seaWching uwu, pls b patient OnO</p>
     }
 
     /*return(
@@ -70,7 +72,7 @@ export function DetailVG()
         </div>
     )*/
 
-    return(<div id='detailedContainer'><p>OH! UwU, we are Wowking VEWY HAWD seaWching uwu, pls b patient OnO</p></div>)
+    return(<p id='searchingMessageDet'>OH! UwU, we are Wowking VEWY HAWD seaWching uwu, pls b patient OnO</p>)
 }
 
 //.\alt_img_joystick.jpg

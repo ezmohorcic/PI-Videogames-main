@@ -1,6 +1,6 @@
 #createContainer{
     width: 40vw;
-    height: 70vh;
+    height: 90vh;
     margin: 5vh 30vw 0 30vw;
     padding-top: 2vh;
 
@@ -11,15 +11,15 @@
 
     text-align: center;
 }
-#createContainer>div>input,#createDescription{
+#createContainer>div>input,#createDescription,#RatingReleaseShell>div>input,#createGenres{
     background-color: #121212;
     color: white;
     border: none;
     border-radius: 0.2vw;
 }
-#createContainer>div>input::placeholder{
+/*#createContainer>div>input::placeholder{
     color: lightgray;
-}
+}*/
 input:focus, textarea:focus{
     outline:1px solid blue;
 }
@@ -56,5 +56,79 @@ input:focus, textarea:focus{
 }
 #createReleaseDate,#createRating{
     width: 8vw;
-    height: 2vh;
+    height: 3vh;
+}
+
+
+#createPlatformsShell,#createGenresDateShell{
+    width: 25vw;
+    height: 3vh;
+    margin: 2vh 7.5vw 2vh 7.5vw;
+}
+#createPlatforms,#createGenres{
+    color: lightgray;
+    height: 3vh;
+}
+#addPlatform,#addGenreBut{
+    height: 3vh;
+    margin-left: 1vw;
+    background-color: #202020;
+    border: none;
+    color: white;
+}
+
+
+#genresOption{
+    color: lightgray;
+}
+
+
+#CreateGame{
+    height: 3vh;
+    background-color: #202020;
+    border: none;
+    color: white;
+}
+
+
+#allGenresShell,#allPlatsShell{
+    display: flex;
+    justify-content: space-evenly;
+    width: 36vw;
+    height: 6vh;
+    margin:0 2vw 0 2vw;
+}
+
+.PlatformShow,.PlatformShow{
+    display: flex;
+    flex-wrap: wrap;
+    background-color: gray;
+    
+    border-radius: 2vh;
+    height: 3vh;
+    font-size: 0.8em;
+}
+
+.PlatformShow>p,.PlatformShow>p{
+    height: 3vh;
+    margin: 0;
+    margin-top: 0.2vh;
+    margin-left: 0.3vw;
+}
+
+.eliminatePlatform{
+    background-color: transparent;
+    width: 2vw;
+    height: 3vh;
+    border: none;
+}
+
+.notesCreation{
+    color: white;
+    font-size: 0.8em;
+}
+
+#linkToId{
+    color: lightgreen;
+    font-size: 1.1em;
 }

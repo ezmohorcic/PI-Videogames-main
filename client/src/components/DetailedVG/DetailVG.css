@@ -1,0 +1,31 @@
+#detailedContainer{
+    width: 60vw;
+    margin: 2vh 20vw 0 20vw;
+
+    border: 0.3vw solid #3c4042;
+    border-radius: 2vw;
+
+    text-align: center;
+}
+
+#searchingMessageDet,#Message404Det{
+    color: white;
+    text-align: center;
+    font-style: italic;
+    font-weight: bold;
+    font-size: 2em;
+}
+
+#detailName{
+    color: #4c96d5;
+}
+
+#detailedImgShell{
+    margin: 0 auto 0 auto;
+    width: 50vw;
+    height: 28.14vw;
+}
+#detailedImg{
+    width: 100%;
+    height: 100%;
+}

@@ -75,22 +75,35 @@ export function CreateVG(props)
 
     function handleAddGenres()
     {
-        if(!newGame.genres.includes(addingGen))
+        if(!newGame.genres.includes(addingGen) && addingGen!="")
         {
             setNewGame({...newGame,genres:[...newGame.genres,addingGen]})
             setAddingPlat("");
         }
     }
 
-    const arrGenres= genres.map((element,index)=><option key={"option_"+index}>{element.name}</option>)
-    const arrPlatforms=newGame.platforms.map((element,index)=><p key={"showPlat_"+index}>{element}</p>)
-    const arrGenre=newGame.genres.map((element,index)=><p key={"showGen_"+index}>{element}</p>)
-    const arrErros= errors.map((element,index)=><p key={"showError_"+index}>{element}</p>)
+    function handleEliminatePlat(e)
+    {
+        setNewGame({...newGame,platforms:[...newGame.platforms.filter(plat=>plat!=e.target.value)]})
+    }
+
+    function handleEliminateGenre(e)
+    {
+        console.log(e.target.value)
+        setNewGame({...newGame,genres:[...newGame.genres.filter(genre=>genre!=e.target.value)]})
+        
+    }
+
+    const arrGenres= [<option className='genresOption' key={""}>{" "}</option>,...genres.map((element,index)=><option className='genresOption' key={"option_"+index}>{element.name}</option>)]
+    const arrPlatforms=newGame.platforms.map((element,index)=><div key={"showPlat_"+index} className="PlatformShow"><p >{element}</p> <button value={element} onClick={(e)=>handleEliminatePlat(e)} className='eliminatePlatform'>X</button></div>)
+    const arrGenre=newGame.genres.map((element,index)=><div key={"showGen_"+index} className="PlatformShow"><p>{element}</p><button value={element} onClick={(e)=>handleEliminateGenre(e)} className='eliminatePlatform'>X</button></div>)
+    const arrErros= errors.map((element,index)=><p className='notesCreation' key={"showError_"+index}>{element}</p>)
     let linkTo='';
+    console.log(newGame)
     console.log(addedId)
     if(addedId){
         console.log("addedID")
-        linkTo=<Link to={"/videogame/"+addedId} onClick={()=>{dispatch(getVideogameById(addedId))}}>Juego agregado!</Link>}
+        linkTo=<Link to={"/videogame/"+addedId} id="linkToId" onClick={()=>{dispatch(getVideogameById(addedId))}}>Juego agregado!</Link>}
     return(
         <div id='createContainer'>
             <div id="createNameShell"><input value={newGame.name} onChange={(e)=>setNewGame({...newGame,name:e.target.value})} type="text" name="name" id="createName" placeholder='Name' /></div>
@@ -107,19 +120,19 @@ export function CreateVG(props)
                 <input value={addingPlat} onChange={(e)=>{ setAddingPlat(e.target.value)}}  type="text" name="platforms" id="createPlatforms" placeholder='Add Platform' />
                 <button id="addPlatform" onClick={()=>handleAddPlatform()}>Add platform</button>
             </div>
-            {arrPlatforms}
+            <div id='allPlatsShell'>{arrPlatforms}</div>
             
             
             <div id="createGenresDateShell">
-                <select name="genres" id="createGenres" onChange={(e)=>setAddingGen(e.target.value)}>{arrGenres}</select>
+                <select name="genres" id="createGenres" placeholder='Select Genres' onChange={(e)=>setAddingGen(e.target.value)}>{arrGenres}</select>
                 <button id="addGenreBut" onClick={()=>handleAddGenres()}>add genre</button> 
             </div>
-            {arrGenre}
-            
-            <div>{arrErros}</div>
+            <div id="allGenresShell">{arrGenre}</div>
+                      
             <div id="createShell">
                 <button id="CreateGame" onClick={()=>{handleSend()}}>Create!</button>
             </div>
+            <div id='notesShell'>{arrErros}</div>
             {linkTo}
         </div>
     )
