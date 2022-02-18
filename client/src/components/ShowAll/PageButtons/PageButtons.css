@@ -1,0 +1,36 @@
+#pageButsContainer{
+    display: flex;
+    justify-content:space-around ;
+    width: 9vw;
+    height: 10vh;
+    margin: auto;
+    padding: 0 6vw 0 6vw;
+}
+#pageButsShell{
+    width: 4vw;
+    height: 4vh;
+}
+
+.pageButs{
+    width: 4vw;
+    height: 4vh;  
+    
+    background-color: #4c96d5;
+    border: none;
+}
+
+#lastPageShell{
+    border-bottom-left-radius: 0.5vh;
+    border-top-left-radius: 0.5vh;
+}
+/* .leftPageShell{
+    margin-left: 6vw;
+} */
+
+#nextPageShell{
+    border-bottom-right-radius: 0.5vh;
+    border-top-right-radius: 0.5vh;
+}
+/* .rightPageShell{
+    margin-right: 6vw;
+} */

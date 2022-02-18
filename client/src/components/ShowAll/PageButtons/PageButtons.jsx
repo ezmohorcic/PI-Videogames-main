@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { NUMBER_200 } from '../../../consts';
 import { lastPage, nextPage, setVideogamesPorBuscando } from '../../../redux/actions';
 
+import './PageButtons.css'
 
 export function PageButtons()
 {
@@ -30,14 +31,14 @@ export function PageButtons()
 
     let lastPageShow='';
     let nextPageShow='';
-    if(page!=0 && videogames.number===NUMBER_200){lastPageShow=<div className="pageButsShell"><button id="lastPageShell" onClick={()=>{handleLastPage()}}>{"<"}</button></div>}
-    if(videogames.videogames.length===15 && videogames.number===NUMBER_200){nextPageShow=<div className="pageButsShell"><button id="nextPageShell" onClick={()=>{handleNextPage()}}>{">"}</button></div>}
+    if(page!=0 && videogames.number===NUMBER_200){lastPageShow=<button className='pageButs' id="lastPageShell" onClick={()=>{handleLastPage()}}>{"<"}</button>}
+    if(videogames.videogames.length===15 && videogames.number===NUMBER_200){nextPageShow=<button className='pageButs' id="nextPageShell" onClick={()=>{handleNextPage()}}>{">"}</button>}
 
     const dispatch=useDispatch()
     return(
         <div id='pageButsContainer'>
-            {lastPageShow}
-            {nextPageShow}
+            <div className="pageButsShell leftPageShell">{lastPageShow}</div>
+            <div className="pageButsShell rightPageShell">{nextPageShow}</div>
             
         </div>
     )

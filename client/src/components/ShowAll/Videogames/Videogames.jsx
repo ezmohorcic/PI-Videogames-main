@@ -51,7 +51,7 @@ export function Videogames()
     }
     else if(videogames.number===NUMBER_404)
     {
-        arrVideogames=<p id="404Message">OOPSIE WOOPSIE!! UwU We made a fucky wucky!! A wittle fucko boingo! The code monkeys at our headquarters are working VEWY HAWD to fix this!</p>
+        arrVideogames=<p id="Message404">OOPSIE WOOPSIE!! UwU We made a fucky wucky!! A wittle fucko boingo! The code monkeys at our headquarters are working VEWY HAWD to fix this!</p>
     }
     return(
         <div id='videogamesInnerCont'>

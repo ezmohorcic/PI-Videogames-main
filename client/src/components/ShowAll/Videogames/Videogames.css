@@ -3,3 +3,11 @@
     flex-wrap: wrap;
     width: 100%;
 }
+
+#searchingMessage,#Message404{
+    color: white;
+    text-align: center;
+    font-style: italic;
+    font-weight: bold;
+    font-size: 2em;
+}

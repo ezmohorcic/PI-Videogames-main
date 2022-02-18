@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import { useDispatch } from "react-redux";
 import { Link } from 'react-router-dom';
-import { setOrderAndFilter, setPage, setSearch } from '../../redux/actions';
+import { getVideogames, setOrderAndFilter, setPage, setSearch, setVideogamesPorBuscando } from '../../redux/actions';
 
 import './Header.css';
 
@@ -16,6 +16,13 @@ export function Header()
         dispatch(setOrderAndFilter({filter:null,order:null}));
         dispatch(setSearch(innersearch))
         dispatch(setPage(0));
+        dispatch(setVideogamesPorBuscando())
+    }
+
+    function headerImgClick()
+    {
+        dispatch(setVideogamesPorBuscando())
+        dispatch(getVideogames({page:0}));
     }
     
     let button;
@@ -24,10 +31,10 @@ export function Header()
 
     return(
         <div id='headerContainer'>
-            <div id="headerImgShell"><Link to={"/showAll"} id="linkLogoShell"><img id='headerLogoShell' src="/kisspng_joystick.png"/></Link></div>
+            <div id="headerImgShell"><Link to={"/showAll"} id="linkLogoShell" onClick={()=>headerImgClick()}><img id='headerLogoShell' src="/kisspng_joystick.png"/></Link></div>
             <div id="inputHeaderShell">
                 <div id="searchTextContainer">
-                    <input type="text" name="searchText" id="searchText" value={innersearch} onChange={(e)=>setInnerSearch(e.target.value)}/>
+                    <input type="text" name="searchText" id="searchText" value={innersearch} placeholder={"Busqueda"} onChange={(e)=>setInnerSearch(e.target.value)}/>
                 </div>
                 <div id="searchButContainer">
                     <button id="searchBut">{button}</button>

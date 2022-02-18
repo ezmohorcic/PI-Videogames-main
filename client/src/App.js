@@ -10,7 +10,7 @@ import { DetailVG } from './components/DetailedVG/DetailVG';
 import { CreateVG } from './components/CreateVG/CreateVG';
 import { ShowGenres } from './components/ShowGenres/ShowGenres';
 
-//import './App.css';
+import './App.css';
 
 function App() {
   const dummy="xd"

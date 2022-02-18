@@ -1,0 +1,60 @@
+#createContainer{
+    width: 40vw;
+    height: 70vh;
+    margin: 5vh 30vw 0 30vw;
+    padding-top: 2vh;
+
+    border-radius: 2vh;
+
+    /* background-color: #202020; */
+    background-color: #3c4042;
+
+    text-align: center;
+}
+#createContainer>div>input,#createDescription{
+    background-color: #121212;
+    color: white;
+    border: none;
+    border-radius: 0.2vw;
+}
+#createContainer>div>input::placeholder{
+    color: lightgray;
+}
+input:focus, textarea:focus{
+    outline:1px solid blue;
+}
+
+
+#createNameShell{
+    width: 100%;
+    height: 6vh;
+
+}
+#createName{
+    width: 20vw;
+    height: 4vh;
+    font-size: 1.1em;
+}
+
+
+#createDescriptionShell{
+    width: 30vw;
+    height: 25vh;
+    margin: 1vh 5vw 2vh 5vw;
+}
+#createDescription{
+    width: 100%;
+    height: 100%;
+}
+
+
+#RatingReleaseShell{
+    width: 20vw;
+    margin: 2vh 10vw 1vh 10vw;
+    display: flex;
+    justify-content: space-around;
+}
+#createReleaseDate,#createRating{
+    width: 8vw;
+    height: 2vh;
+}

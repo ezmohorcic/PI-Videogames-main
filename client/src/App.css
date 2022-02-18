@@ -1,9 +1,13 @@
 .App {
-  text-align: center;
-  padding: 0;
+ /* text-align: center;
+  padding: 0;*/
+  background-color: #181a1b;
+}
+body{
+  background-color: #181a1b;
 }
 
-.App-logo {
+/*.App-logo {
   height: 40vmin;
   pointer-events: none;
 }
@@ -41,4 +45,4 @@
 a{
   text-decoration: none;
   
-}
+}*/
