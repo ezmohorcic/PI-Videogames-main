@@ -31,13 +31,13 @@ export function DetailVG()
         if(details.videogame.description.includes("<p>"))
         {
             rawDescription=details.videogame.description.slice(3,-4).split("<br />\n");
-            description = rawDescription.map((element,index)=><p key={"description_"+index}>{"\n"+element}</p>);
+            description = rawDescription.map((element,index)=><p className='descDetailed' key={"description_"+index}>{"\n"+element}</p>);
         }
-        else{description=<p>{details.videogame.description}</p>;}
+        else{description=<div id='detailedDescriptionShell'>{details.videogame.description}</div>;}
       
-        platforms=details.videogame.platforms.split(",").map((element,index)=><p key={"detailed_Plat_"+index}>{element}</p>)
+        platforms=details.videogame.platforms.split(",").map((element,index)=><div className='detailedPlatGenreShell' key={"detailed_Plat_"+index}><p className='detailedPlatGenre' >{element}</p></div>)
     
-        if(details.videogame.genres)genres=details.videogame.genres.split(",").map((element,index)=><p key={"detailed_Genre_"+index}>{element}</p>)
+        genres=details.videogame.genres.split(",").map((element,index)=><div className='detailedPlatGenreShell' key={"detailed_Genre_"+index}><p className='detailedPlatGenre'>{element}</p></div>)
         
         img=details.videogame.background_image;
         
@@ -46,9 +46,12 @@ export function DetailVG()
                 <h1 id="detailName">{details.videogame.name}</h1>
                 <div id='detailedImgShell'><img id='detailedImg' src={img} /></div>
                 {description}
-                <p>Rating:{details.videogame.rating}</p>
-                {platforms}
-                {genres}
+                <h2>Platforms:</h2>
+                <div id='shellMiddlesDetailed'>{platforms}</div>
+                <h2>Genres:</h2>
+                <div id='shellMiddlesDetailed'>{genres}</div>
+                <h2>Rating:</h2>
+                <div id='shellMiddlesDetailed'><p className='detailedPlatGenre'>{details.videogame.rating}</p></div>
             </div>
         )
     }

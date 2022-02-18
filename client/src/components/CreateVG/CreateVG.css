@@ -94,19 +94,22 @@ input:focus, textarea:focus{
 #allGenresShell,#allPlatsShell{
     display: flex;
     justify-content: space-evenly;
+    flex-wrap: wrap;
     width: 36vw;
-    height: 6vh;
+    height: 7vh;
     margin:0 2vw 0 2vw;
 }
 
 .PlatformShow,.PlatformShow{
     display: flex;
-    flex-wrap: wrap;
     background-color: gray;
     
     border-radius: 2vh;
     height: 3vh;
     font-size: 0.8em;
+}
+.eliminatePlatform:hover{
+    cursor: pointer;
 }
 
 .PlatformShow>p,.PlatformShow>p{
