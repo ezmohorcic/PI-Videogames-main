@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { Link } from 'react-router-dom';
 import { getAllGenres } from '../../redux/actions';
 
+import './StartView.css';
 
 export function StartView()
 {
@@ -13,7 +14,7 @@ export function StartView()
     }
     return (
         <div id='startViewBackground'>
-            <Link id='startViewLink' to={"/showAll"} onClick={getInit}>Enter!</Link>
+            <div id="startViewLinkShell"><button id='startViewButton'><Link id='startViewLink' to={"/showAll"} onClick={getInit}>Enter!</Link></button></div>
         </div>
     )
 }

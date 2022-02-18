@@ -1,0 +1,39 @@
+#startViewBackground
+{
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    height: 85vh;
+    background: url("videogame.png") no-repeat 50% 50%;
+}
+
+#startViewLinkShell{
+    width: 10vw;
+    height: 8vh;
+    margin-top: 60vh;
+}
+
+#startViewButton{
+    width: 10vw;
+    height: 8vh;
+
+    border: 0.2vw solid #4c96d5;
+    border-radius: 0.5vw;
+    background-color: transparent;
+
+    
+}
+#startViewLink{
+    margin: auto;
+    
+    text-align: center;
+    text-decoration: none;
+    color: #4c96d5; 
+    font-weight: bolder;
+    font-size: 1.5em;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
