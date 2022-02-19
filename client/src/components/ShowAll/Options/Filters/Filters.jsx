@@ -1,7 +1,7 @@
 import React, { useEffect, useState} from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { FILTER_TYPE_DBOAPI, FILTER_TYPE_GENRES } from '../../../../consts';
-import { getAllGenres, setFilter, setVideogamesPorBuscando } from '../../../../redux/actions';
+import { getAllGenres, setFilter, setPage, setVideogamesPorBuscando } from '../../../../redux/actions';
 
 import './Filters.css'
 
@@ -18,6 +18,7 @@ export function Filters() //Solo se encarga de
     function handleFilter(e)
     {
         dispatch(setVideogamesPorBuscando());
+        dispatch(setPage(0))
         dispatch(setFilter({type:"genero",payload:e.target.value}));
 
     }
