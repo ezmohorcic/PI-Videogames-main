@@ -107,6 +107,16 @@ async function ALTERgetVideogames(name,page=0,filter,order)
                 console.log("saliendo de alf")
             break;
 
+            case 'invAlfabetico':
+                outRaw.sort(function(a,b)
+                {
+                    if(a.name.toLowerCase() > b.name.toLowerCase()){return -1;}
+                    if(a.name.toLowerCase() < b.name.toLowerCase()){return 1;}
+                    return 0;
+                });
+                console.log("saliendo de alf")
+            break;
+
             case 'rating':
                 console.log("ratingg")
                 outRaw.sort((a,b)=>b.rating-a.rating);
@@ -149,6 +159,7 @@ async function getVideogameByID(idVideogame)
         typeof raw.platforms === "object"? out.platforms=raw.platforms.map(element=>element.platform.name).join(',') : out.platforms=raw.platforms;
         if(raw.name) out.name=raw.name;
         if(raw.rating) out.rating=raw.rating;
+        raw.released? out.releaseDate=raw.released : out.releaseDate=raw.releaseDate;
         if(raw.genres)out.genres=raw.genres.map(element=>element.name).join(',')
         raw.background_image? out.background_image=raw.background_image : out.background_image="./alt_img_joystick.jpg";
         console.log(out)

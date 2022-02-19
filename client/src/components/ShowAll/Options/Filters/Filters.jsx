@@ -26,6 +26,7 @@ export function Filters() //Solo se encarga de
     function handleOrder(e)
     {
         dispatch(setVideogamesPorBuscando());
+        dispatch(setPage(0));
         dispatch(setFilter({type:"dbOapi",payload:e.target.value}))
     }
 

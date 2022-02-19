@@ -52,6 +52,8 @@ export function DetailVG()
                 <div id='shellMiddlesDetailed'>{genres}</div>
                 <h2>Rating:</h2>
                 <div id='shellMiddlesDetailed'><p className='detailedPlatGenre'>{details.videogame.rating}</p></div>
+                <h2>Release Date:</h2>
+                <div id='shellMiddlesDetailed'><p className='detailedPlatGenre'>{details.videogame.releaseDate}</p></div>
             </div>
         )
     }

@@ -43,7 +43,7 @@ function detailVideogames (state={videogame:{},number:NUMBER_000},action)
 function filterAndOrder(state={},action)
 {
     if(action.type===CHANGE_FILT_ORD){return action.payload;}
-    else if(action.type===CHANGE_FILTER){return {...state,filter:action.payload};}
+    else if(action.type===CHANGE_FILTER){return {...state,order:{},filter:action.payload};}
     else if(action.type===CHANGE_ORDER){return {...state,order:action.payload};}
     else return state;
 }
