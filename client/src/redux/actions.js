@@ -1,4 +1,4 @@
-import { ALL_GENRES, ADD_GENRE, SHOW_VIDEOGAMES_PAGE, DETAIL_VIDEOGAME, CHANGE_ORDER, CHANGE_FILTER, CHANGE_FILT_ORD, NEW_PAGE, NEW_SEARCH, ADDED_ID, NEXT_PAGE, LAST_PAGE, NUMBER_404, NUMBER_200, SET_SEARCHING_000, SEARCHING_DETAILED, NUMBER_000 } from "../consts";
+import { ALL_GENRES, ADD_GENRE, SHOW_VIDEOGAMES_PAGE, DETAIL_VIDEOGAME, CHANGE_ORDER, CHANGE_FILTER, CHANGE_FILT_ORD, NEW_PAGE, NEW_SEARCH, ADDED_ID, NEXT_PAGE, LAST_PAGE, NUMBER_404, NUMBER_200, SET_SEARCHING_000, SEARCHING_DETAILED, NUMBER_000, CHANGE_FILTER_GENRE, CHANGE_FILTER_DBOAPI } from "../consts";
 
 export function dummy (payload)
 {
@@ -33,6 +33,7 @@ export function addGenre(payload)
 
 export function getVideogames({query=null,page=null,filter=null,order=null})
 {
+    console.log(filter)
     return async function(dispatch)
     {
         try
@@ -49,22 +50,26 @@ export function getVideogames({query=null,page=null,filter=null,order=null})
             const response = await fetch("http://localhost:3001/videogames"+q); //+q+p+filterType+filterGenres,orderType
             let json= await response.json();
             if(filter)
-            {
-                if(filter.type=== "dbOapi")
+            { 
+                if(filter.dbOapi=== "dbOapi")
+                //if(filter.type=== "dbOapi")
                 {
                     console.log("filtro en dbOapi")
-                    if(filter.payload==="db"){
+                    if(filter.dbOapiPayload==="db"){
+                    //if(filter.payload==="db"){
                         console.log("filtro en db")
                         json=json.filter(vg=> typeof vg.id == "string")}
-                    else if(filter.payload==="api"){
+                    else if(filter.dbOapiPayload==="api"){
+                    //else if(filter.payload==="api"){
                         console.log("filtro en api")
                         json=json.filter(vg=> typeof vg.id == "number")}
-                    json=json.slice(page*15,(page+1)*15);
+                    //json=json.slice(page*15,(page+1)*15);
                 }
             }
             let number=NUMBER_404;
             console.log(json)
             json.length==0? number=NUMBER_404 : number=NUMBER_200;
+            json=json.slice(page*15,(page+1)*15);
             dispatch({type:SHOW_VIDEOGAMES_PAGE,payload:{videogames:json,number}});
         }
         catch(e){console.log(e)}
@@ -152,6 +157,16 @@ export function setFilter(payload)
 export function setOrderAndFilter(payload)
 {
  return{type:CHANGE_FILT_ORD,payload}
+}
+
+export function setFilterGenres(payload)
+{
+ return{type:CHANGE_FILTER_GENRE,payload}
+}
+
+export function setFilterDbOApi(payload)
+{
+ return{type:CHANGE_FILTER_DBOAPI,payload}
 }
 
 //----Filters And Order----

@@ -127,12 +127,12 @@ async function ALTERgetVideogames(name,page=0,filter,order)
         }
     }
 
-    let out =[];
-    if(filter) // || page=0 => 0*15 a (1*15)-1 == 0 a 14 || page=1 => 1*15 a ((1+1)*15)-1 == 15 a 29 ||
+    let out =outRaw;
+    /*if(filter) // || page=0 => 0*15 a (1*15)-1 == 0 a 14 || page=1 => 1*15 a ((1+1)*15)-1 == 15 a 29 ||
     {
         filter.type=="dbOapi"? out=outRaw : out=outRaw.slice(page*15,(page+1)*15);
     }
-    else {out = outRaw.slice(page*15,(page+1)*15);}
+    else {out = outRaw.slice(page*15,(page+1)*15);}*/
     out = out.map((element)=>
     {
         let partial={};

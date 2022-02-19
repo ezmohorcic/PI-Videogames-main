@@ -1,7 +1,7 @@
 import React, { useEffect, useState} from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { FILTER_TYPE_DBOAPI, FILTER_TYPE_GENRES } from '../../../../consts';
-import { getAllGenres, setFilter, setPage, setVideogamesPorBuscando } from '../../../../redux/actions';
+import { getAllGenres, setFilter, setFilterDbOApi, setFilterGenres, setPage, setVideogamesPorBuscando } from '../../../../redux/actions';
 
 import './Filters.css'
 
@@ -13,13 +13,13 @@ export function Filters() //Solo se encarga de
 
     useEffect(()=>{if(genres.length===0){dispatch(getAllGenres())}},[])
     
-    const [typeFilter,setTypeFilter]= useState('');
+    const [typeFilter,setTypeFilter]= useState(['','']);
 
     function handleFilter(e)
     {
         dispatch(setVideogamesPorBuscando());
         dispatch(setPage(0))
-        dispatch(setFilter({type:"genero",payload:e.target.value}));
+        dispatch(setFilterGenres({type:"genero",payload:e.target.value}));
 
     }
 
@@ -27,18 +27,19 @@ export function Filters() //Solo se encarga de
     {
         dispatch(setVideogamesPorBuscando());
         dispatch(setPage(0));
-        dispatch(setFilter({type:"dbOapi",payload:e.target.value}))
+        dispatch(setFilterDbOApi({type:"dbOapi",payload:e.target.value}))
     }
 
-    let dropDownFilter='';
-    if(typeFilter===FILTER_TYPE_GENRES)
+    let dropDownFilterGenre='';
+    let dropDownFilterDbOApi='';
+    if(typeFilter[1]===FILTER_TYPE_GENRES)
     {
         let tempOptions=[ <option key={"empty_option"}> </option>,genres.map((element,index)=><option key={"option_"+index}>{element.name}</option>)]
-        dropDownFilter = <select id='filterSelect' value={""} onChange={(e)=>{handleFilter(e)}}>{tempOptions}</select>
+        dropDownFilterGenre = <select id='filterSelect' value={""} onChange={(e)=>{handleFilter(e)}}>{tempOptions}</select>
     }
-    else if(typeFilter===FILTER_TYPE_DBOAPI)
+    if(typeFilter[0]===FILTER_TYPE_DBOAPI)
     {
-        dropDownFilter = <select id='filterSelect' value={""} onChange={(e)=>{handleOrder(e)}}>
+        dropDownFilterDbOApi = <select id='filterSelect' value={""} onChange={(e)=>{handleOrder(e)}}>
                 <option key={"option_"} value={""}>{""}</option>
                 <option key={"option_DB"} value={"db"}>{"db"}</option>
                 <option key={"option_API"} value={"api"}>{"api"}</option>
@@ -47,18 +48,25 @@ export function Filters() //Solo se encarga de
 
     function handleNone()
     {
-        setTypeFilter('');
+        dispatch(setVideogamesPorBuscando());
+        setTypeFilter(['','']);
         dispatch(setFilter({}));
     }
+
+    console.log(typeFilter)
 
     return(
         <div id="filterInnerCont">
             <h3 id='h3Filter'>FILTERS owo!</h3>
             <div id="allFilters">
-                <div className="filterShell"><label htmlFor="" className='filterLabel'>DB o Api</label><input type="radio" className='filterTypeRadio'  name="tipoFiltro" id={FILTER_TYPE_DBOAPI} onChange={(e)=>setTypeFilter(FILTER_TYPE_DBOAPI)} /></div>
-                <div className="filterShell"><label htmlFor="" className='filterLabel'>Genero</label><input type="radio" className='filterTypeRadio' name="tipoFiltro" id={FILTER_TYPE_GENRES} onChange={(e)=>setTypeFilter(FILTER_TYPE_GENRES)} /></div>
+                <div className="filterShell"><label htmlFor="" className='filterLabel'>DB o Api</label><input type="radio" className='filterTypeRadio'  name="tipoFiltro" id={FILTER_TYPE_DBOAPI} onChange={(e)=>setTypeFilter([FILTER_TYPE_DBOAPI,typeFilter[1]])} /></div>
+                <div id="filterDropDownShell">{dropDownFilterDbOApi}</div>
+
+                <div className="filterShell"><label htmlFor="" className='filterLabel'>Genero</label><input type="radio" className='filterTypeRadio' name="tipoFiltro" id={FILTER_TYPE_GENRES} onChange={(e)=>setTypeFilter([typeFilter[0],FILTER_TYPE_GENRES])} /></div>
+                <div id="filterDropDownShell">{dropDownFilterGenre}</div>
+
                 <div className="filterShell"><label htmlFor="" className='filterLabel'>Ninguna</label><input type="radio" className='filterTypeRadio' name="tipoFiltro" id="noneFiltro" onChange={(e)=>handleNone()} /></div>
-                <div id="filterDropDownShell">{dropDownFilter}</div>
+                
             </div>
 
         </div>
