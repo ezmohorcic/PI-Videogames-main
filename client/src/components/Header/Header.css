@@ -9,17 +9,17 @@
 }
 
 #headerImgShell{
-    width: 20vw;
+    width: 15vw;
     height: 10vh;
 }
 #linkLogoShell{
-    width: 20vw;
-    height: 11.57vw;
+    width: 15vh;
+    height: 8vh;
 }
 #headerLogoShell{
-    width: 10vw;
+    width: 15vh;
     height: 8vh;
-    padding: 1vh 5vh 1vh 5vh;
+    padding: 1vh 4vh 1vh 4vh;
 }
 
 
