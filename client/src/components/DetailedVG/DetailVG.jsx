@@ -18,34 +18,26 @@ export function DetailVG()
         if(!details.hasOwnProperty("id"))dispatch(getVideogameById(searchparams.pathname.split('/')[2]))
     },[]);
 
-    let rawDescription;
-    let description;
     let platforms=[];
     let genres=[];
-    let img='';
+    //let img='';
     
     console.log(details)
 
     if(details.number===NUMBER_200)
     {
-        if(details.videogame.description.includes("<p>"))
-        {
-            rawDescription=details.videogame.description.slice(3,-4).split("<br />\n");
-            description = rawDescription.map((element,index)=><p className='descDetailed' key={"description_"+index}>{"\n"+element}</p>);
-        }
-        else{description=<div id='detailedDescriptionShell'>{details.videogame.description}</div>;}
       
         platforms=details.videogame.platforms.split(",").map((element,index)=><div className='detailedPlatGenreShell' key={"detailed_Plat_"+index}><p className='detailedPlatGenre' >{element}</p></div>)
     
         genres=details.videogame.genres.split(",").map((element,index)=><div className='detailedPlatGenreShell' key={"detailed_Genre_"+index}><p className='detailedPlatGenre'>{element}</p></div>)
         
-        img=details.videogame.background_image;
+        //img=details.videogame.background_image;
         
         return(
             <div id='detailedContainer'>
                 <h1 id="detailName">{details.videogame.name}</h1>
-                <div id='detailedImgShell'><img id='detailedImg' src={img} /></div>
-                {description}
+                <div id='detailedImgShell'><img id='detailedImg' src={details.videogame.background_image} /></div>
+                <div id='detailedDescription' dangerouslySetInnerHTML={{__html: details.videogame.description}}></div>
                 <h2>Platforms:</h2>
                 <div id='shellMiddlesDetailed'>{platforms}</div>
                 <h2>Genres:</h2>
@@ -79,6 +71,3 @@ export function DetailVG()
 
     return(<p id='searchingMessageDet'>OH! UwU, we are Wowking VEWY HAWD seaWching uwu, pls b patient OnO</p>)
 }
-
-//.\alt_img_joystick.jpg
-//.\DetailVG.jsx

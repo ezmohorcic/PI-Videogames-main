@@ -41,10 +41,10 @@
     color: lightgray;
     font-size: 1em;
 }
-#detailedDescriptionShell>p,.descDetailed{
+#detailedDescriptionShell>p,#detailedDescription>p{
     color: lightgray;
 }
-.descDetailed{
+#detailedDescription{
     width: 50vw;
     margin: 0vh auto 0vh auto;
 }
