@@ -34,41 +34,37 @@ export function CreateVG()
 
     function handleSend()
     {
-        console.log("handing send")
+        console.log("handling send")
         let flag=true;
         let rawErrors=[]
         if(/([#$%^&*{}])/.test(newGame.name) || newGame.name==="")
         {
-            console.log(/([#$%^&*{}])/.test(newGame.name))
             flag=false;
             rawErrors=[...rawErrors,'Error en name']
-            console.log(rawErrors)
         }
         if(newGame.description==="")
         {
             flag=false;
             rawErrors=[...rawErrors,'Error en description']
-            console.log(rawErrors)
         }
         if(newGame.rating<0 || newGame.rating>5)
         {
             flag=false;
             rawErrors=[...rawErrors,'Error en rating']
-            console.log(rawErrors)
         }
         if(newGame.platforms.length<1)
         {
             flag=false;
             rawErrors=[...rawErrors,'Error en platforms']
-            console.log(rawErrors)
         }
         if(newGame.genres.length<1)
         {
             flag=false;
             rawErrors=[...rawErrors,'Error en genres']
-            console.log(rawErrors)
+            
         }
         setErrors(rawErrors);
+        console.log(rawErrors);
         if(flag){
             setErrors(['Enviando a db!'])
             dispatch(addVideogames(newGame))
@@ -100,7 +96,6 @@ export function CreateVG()
 
     function handleEliminateGenre(e)
     {
-        console.log(e.target.value)
         setNewGame({...newGame,genres:[...newGame.genres.filter(genre=>genre!=e.target.value)]})
         
     }
@@ -110,8 +105,7 @@ export function CreateVG()
     const arrGenre=newGame.genres.map((element,index)=><div key={"showGen_"+index} className="PlatformShow"><p>{element}</p><button value={element} onClick={(e)=>handleEliminateGenre(e)} className='eliminatePlatform'>X</button></div>)
     const arrErros= errors.map((element,index)=><p className='notesCreation' key={"showError_"+index}>{element}</p>)
     let linkTo='';
-    console.log(newGame)
-    console.log(addedId)
+
     if(addedId){
         console.log("addedID")
         linkTo=<Link to={"/videogame/"+addedId} id="linkToId" onClick={()=>{dispatch(getVideogameById(addedId))}}>Juego agregado!</Link>}
@@ -126,7 +120,6 @@ export function CreateVG()
             </div>
            
            
-
             <div id="createPlatformsShell">
                 <input value={addingPlat} onChange={(e)=>{ setAddingPlat(e.target.value)}}  type="text" name="platforms" id="createPlatforms" placeholder='Add Platform' />
                 <button id="addPlatform" onClick={()=>handleAddPlatform()}>Add platform</button>

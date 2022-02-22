@@ -18,8 +18,6 @@ export function Videogames()
     const page = useSelector((state)=>state.page);
 
     const searchparams=useLocation();
-
-    console.log(search);
     
     useEffect(()=>
     {
@@ -37,7 +35,6 @@ export function Videogames()
     {
         arrVideogames = videogames.videogames.map((element,index)=>
         {
-            //console.log(element)
             let name=element.name;
             let img=element.background_image;
             let genres=[]

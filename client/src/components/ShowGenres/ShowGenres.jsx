@@ -18,8 +18,6 @@ export function ShowGenres()
     },[])
 
     function handleGenreShowAll(e,element){
-        console.log(element)
-        console.log(e)
         dispatch(setVideogamesPorBuscando());
         dispatch(setFilter({type:"genero",payload:element.name}));
     }

@@ -100,6 +100,7 @@ export function getVideogameById(id)
             const response = await fetch("http://localhost:3001/videogames/"+id);
             let json= await response.json();
             let number=NUMBER_404;
+            console.log(json)
             console.log(json.hasOwnProperty("id"))
             json.hasOwnProperty("id")? number=NUMBER_200: number=NUMBER_404;
             dispatch({type:DETAIL_VIDEOGAME,payload:{videogame:json,number}});

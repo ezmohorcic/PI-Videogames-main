@@ -62,7 +62,6 @@ function page(state=0,action)
 function search(state="",action)
 {
     if(action.type===NEW_SEARCH){
-        console.log(action)
         return action.payload}
     else return state;
 }
@@ -70,7 +69,6 @@ function search(state="",action)
 function addedvideogame(state="",action)
 {   
     if(action.type===ADDED_ID){
-        console.log(action)
         return action.payload}
     else return state;
 }

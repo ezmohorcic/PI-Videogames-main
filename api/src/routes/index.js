@@ -17,7 +17,7 @@ async function ALTERgetVideogames(name,page=0,filter,order)
     /* 
     let dbRaw =Videogame.findAll({include:Genre})
     */
-    //console.log(dbRaw)
+    
     if(name){if(dbRaw)dbRaw=dbRaw.filter(vdg => vdg.name.toLowerCase().includes(name.toLowerCase()));}//filtro por nombre en base de datos}
 
     var apiRaw =[];
@@ -35,7 +35,6 @@ async function ALTERgetVideogames(name,page=0,filter,order)
         temp=temp.results;
         if(!temp){temp=[];}
         apiRaw=[...apiRaw,...temp];
-        console.log(i)
     }
     console.log("despues del for")
     //--code con order/filtro
@@ -54,13 +53,11 @@ async function ALTERgetVideogames(name,page=0,filter,order)
                             attributes:['name']
                         }]
                     });*/
-                console.log(dbRaw);
                 //dbRaw=dbRaw.filter(vd => vd.genres.includes(filter.payload)); //revisar esto, ver como filtrar DB
                 
                 dbRaw=dbRaw.filter(vd=>
                     {
                         let flag=false;
-                        //console.log(vd.name)
                         vd.genres.forEach(element => 
                         {
                             if(element.name==filter.payload)
@@ -73,7 +70,6 @@ async function ALTERgetVideogames(name,page=0,filter,order)
                 apiRaw = apiRaw.filter(vd=>
                     {
                         let flag=false;
-                        //console.log(vd.name)
                         vd.genres.forEach(element => 
                         {
                             if(element.name==filter.payload)
@@ -97,8 +93,6 @@ async function ALTERgetVideogames(name,page=0,filter,order)
     }
 
     let outRaw = [...dbRaw,...apiRaw];
-    outRaw.map(vg=>console.log(vg.name));
-    //console.log(logg)
 
     if(order) // alfabetico || rating
     {
@@ -121,7 +115,7 @@ async function ALTERgetVideogames(name,page=0,filter,order)
                     if(a.name.toLowerCase() < b.name.toLowerCase()){return 1;}
                     return 0;
                 });
-                console.log("saliendo de alf")
+                console.log("saliendo de alfInv")
             break;
 
             case 'rating':
@@ -155,12 +149,11 @@ async function ALTERgetVideogames(name,page=0,filter,order)
 
 async function getVideogameByID(idVideogame)
 {
-    console.log(typeof idVideogame)
     if(idVideogame.length<20) //es de api
     {
         const resp = await fetch(`https://api.rawg.io/api/games/${idVideogame}?key=${api_key}`); //fetcheo el id
         const raw=await resp.json(); //json...
-        console.log(raw.length);
+
         let out={};
         /*
         const out = fetch("url de search")
@@ -180,9 +173,9 @@ async function getVideogameByID(idVideogame)
         });
         */
         
-        if(raw.length)
+        if(raw.hasOwnProperty("id"))
         {
-            console.log("dentro del if")
+            console.log("dentro de raw.length")
             out.id=raw.id;
             if(raw.description) out.description=raw.description;
             typeof raw.platforms === "object"? out.platforms=raw.platforms.map(element=>element.platform.name).join(',') : out.platforms=raw.platforms;
@@ -191,7 +184,6 @@ async function getVideogameByID(idVideogame)
             raw.released? out.releaseDate=raw.released : out.releaseDate=raw.releaseDate;
             if(raw.genres)out.genres=raw.genres.map(element=>element.name).join(',')
             raw.background_image? out.background_image=raw.background_image : out.background_image="./alt_img_joystick.jpg";
-            console.log(out)
         }
         return out; 
     }
@@ -221,7 +213,6 @@ async function getVideogameByID(idVideogame)
             videogame.dataValues.background_image="/alt_img_joystick.jpg"
             videogame.dataValues.genres=videogame.dataValues.genres.map(genre=>genre.name).join(',');
             videogame.dataValues.description= "<p>"+videogame.dataValues.description+"</p>"
-            console.log(videogame)
 
             return videogame;
         }
