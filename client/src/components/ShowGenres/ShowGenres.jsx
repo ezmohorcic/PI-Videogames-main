@@ -11,7 +11,11 @@ export function ShowGenres()
     const genres = useSelector((state)=>state.genres);
     const dispatch=useDispatch();
 
-    useEffect(()=>{if(genres.length===0){dispatch(getAllGenres())}},[])
+    useEffect(()=>
+    {
+        document.title= "owo || " + "Show Genres!"  
+        if(genres.length===0){dispatch(getAllGenres())}
+    },[])
 
     function handleGenreShowAll(e,element){
         console.log(element)

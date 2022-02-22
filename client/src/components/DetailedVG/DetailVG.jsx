@@ -15,6 +15,7 @@ export function DetailVG()
     const details= useSelector((state)=>state.detailVideogames)
     useEffect(()=>
     {
+        document.title= "owo || " + "Detailed!"  
         if(!details.hasOwnProperty("id"))dispatch(getVideogameById(searchparams.pathname.split('/')[2]))
     },[]);
 
@@ -26,7 +27,7 @@ export function DetailVG()
 
     if(details.number===NUMBER_200)
     {
-      
+        document.title= "owo || " + "Detailed:"+details.videogame.name + "!";
         platforms=details.videogame.platforms.split(",").map((element,index)=><div className='detailedPlatGenreShell' key={"detailed_Plat_"+index}><p className='detailedPlatGenre' >{element}</p></div>)
     
         genres=details.videogame.genres.split(",").map((element,index)=><div className='detailedPlatGenreShell' key={"detailed_Genre_"+index}><p className='detailedPlatGenre'>{element}</p></div>)
@@ -55,7 +56,7 @@ export function DetailVG()
     }
     else if(details.number===NUMBER_200)
     {
-        return<p id='Message404Det'>OH! UwU, we are Wowking VEWY HAWD seaWching uwu, pls b patient OnO</p>
+        return<p id='Message404Det'>OH! UwU, we are LOADING... </p>
     }
 
     /*return(
@@ -69,5 +70,5 @@ export function DetailVG()
         </div>
     )*/
 
-    return(<p id='searchingMessageDet'>OH! UwU, we are Wowking VEWY HAWD seaWching uwu, pls b patient OnO</p>)
+    return(<p id='searchingMessageDet'>OH! UwU, we are LOADING... </p>)
 }

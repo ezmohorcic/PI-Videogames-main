@@ -1,4 +1,4 @@
-import { ALL_GENRES, ADD_GENRE, SHOW_VIDEOGAMES_PAGE, DETAIL_VIDEOGAME, CHANGE_ORDER, CHANGE_FILTER, CHANGE_FILT_ORD, NEW_PAGE, NEW_SEARCH, ADDED_ID, NEXT_PAGE, LAST_PAGE, NUMBER_404, NUMBER_200, SET_SEARCHING_000, SEARCHING_DETAILED, NUMBER_000, CHANGE_FILTER_GENRE, CHANGE_FILTER_DBOAPI } from "../consts";
+import { ALL_GENRES, ADD_GENRE, SHOW_VIDEOGAMES_PAGE, DETAIL_VIDEOGAME, CHANGE_ORDER, CHANGE_FILTER, CHANGE_FILT_ORD, NEW_PAGE, NEW_SEARCH, ADDED_ID, NEXT_PAGE, LAST_PAGE, NUMBER_404, NUMBER_200, SET_SEARCHING_000, SEARCHING_DETAILED, NUMBER_000, CHANGE_FILTER_GENRE, CHANGE_FILTER_DBOAPI, FILTER_RATINGS_MENOR } from "../consts";
 
 export function dummy (payload)
 {
@@ -41,11 +41,11 @@ export function getVideogames({query=null,page=null,filter=null,order=null})
             let q= "?page="+page.toString();
             if(query){q= q+"&name="+query;}
             if(filter)
-            {
-                q= q+'&filterType='+filter.type;
+            {   
+                if(filter.type){q= q+'&filterType='+filter.type;}
                 if(filter.payload){q = q+'&filterGenres='+filter.payload;}
             }
-            if(order){q= q+'&order='+order.type;}
+            if(order){if(order.type){q= q+'&order='+order.type;}}
             console.log(q)
             const response = await fetch("http://localhost:3001/videogames"+q); //+q+p+filterType+filterGenres,orderType
             let json= await response.json();
@@ -65,6 +65,11 @@ export function getVideogames({query=null,page=null,filter=null,order=null})
                         json=json.filter(vg=> typeof vg.id == "number")}
                     //json=json.slice(page*15,(page+1)*15);
                 }
+                /*if(filter.filterMenor)
+                {
+                    console.log("filtro rating menores a 2");
+                    json= json.filter(vg=>vg.rating<=2);
+                }*/
             }
             let number=NUMBER_404;
             console.log(json)
@@ -95,7 +100,8 @@ export function getVideogameById(id)
             const response = await fetch("http://localhost:3001/videogames/"+id);
             let json= await response.json();
             let number=NUMBER_404;
-            json? number=NUMBER_200 : number=NUMBER_404;
+            console.log(json.hasOwnProperty("id"))
+            json.hasOwnProperty("id")? number=NUMBER_200: number=NUMBER_404;
             dispatch({type:DETAIL_VIDEOGAME,payload:{videogame:json,number}});
         }
         catch(e)
@@ -167,6 +173,11 @@ export function setFilterGenres(payload)
 export function setFilterDbOApi(payload)
 {
  return{type:CHANGE_FILTER_DBOAPI,payload}
+}
+
+export function setFilterRatingMenor(payload)
+{
+    return{type:FILTER_RATINGS_MENOR,payload}
 }
 
 //----Filters And Order----

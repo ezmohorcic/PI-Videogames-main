@@ -147,6 +147,7 @@ async function ALTERgetVideogames(name,page=0,filter,order)
         partial.name=element.name;
         element.background_image? partial.background_image=element.background_image : partial.background_image="./alt_img_joystick.jpg";
         typeof element.genres == "object"? partial.genres=element.genres.map(genre=>genre.name).join(',') : partial.genre="nuh"
+        partial.rating=element.rating;
         return partial;
     }); 
     return out;
@@ -159,7 +160,8 @@ async function getVideogameByID(idVideogame)
     {
         const resp = await fetch(`https://api.rawg.io/api/games/${idVideogame}?key=${api_key}`); //fetcheo el id
         const raw=await resp.json(); //json...
-
+        console.log(raw.length);
+        let out={};
         /*
         const out = fetch("url de search")
         .then(r=>rjson());
@@ -177,17 +179,20 @@ async function getVideogameByID(idVideogame)
             return out;
         });
         */
-
-        let out={};
-        out.id=raw.id;
-        if(raw.description) out.description=raw.description;
-        typeof raw.platforms === "object"? out.platforms=raw.platforms.map(element=>element.platform.name).join(',') : out.platforms=raw.platforms;
-        if(raw.name) out.name=raw.name;
-        if(raw.rating) out.rating=raw.rating;
-        raw.released? out.releaseDate=raw.released : out.releaseDate=raw.releaseDate;
-        if(raw.genres)out.genres=raw.genres.map(element=>element.name).join(',')
-        raw.background_image? out.background_image=raw.background_image : out.background_image="./alt_img_joystick.jpg";
-        console.log(out)
+        
+        if(raw.length)
+        {
+            console.log("dentro del if")
+            out.id=raw.id;
+            if(raw.description) out.description=raw.description;
+            typeof raw.platforms === "object"? out.platforms=raw.platforms.map(element=>element.platform.name).join(',') : out.platforms=raw.platforms;
+            if(raw.name) out.name=raw.name;
+            if(raw.rating) out.rating=raw.rating;
+            raw.released? out.releaseDate=raw.released : out.releaseDate=raw.releaseDate;
+            if(raw.genres)out.genres=raw.genres.map(element=>element.name).join(',')
+            raw.background_image? out.background_image=raw.background_image : out.background_image="./alt_img_joystick.jpg";
+            console.log(out)
+        }
         return out; 
     }
     else    //es de database, agregado a mano
@@ -290,6 +295,8 @@ async function AddVideogame(name,description,releaseDate,rating,platforms,genres
     }
     catch(e){console.log(e)}
 }
+//cambiar nomnbre y favicon de pagina
+
 
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);

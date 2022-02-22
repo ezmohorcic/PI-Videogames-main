@@ -7,14 +7,25 @@ import { addVideogames, getAllGenres, getVideogameById } from '../../redux/actio
 
 import './CreateVG.css'
 
-export function CreateVG(props)
+export function CreateVG()
 {
+
     const dispatch=useDispatch()
     const genres=useSelector((state)=>state.genres);
     const addedId=useSelector(state=>state.addedvideogame);
     if(genres.length===0){dispatch(getAllGenres())}
     
-    useEffect(()=>{dispatch(getAllGenres())},[])
+    useEffect(()=>
+    {
+        document.title= 
+        dispatch(getAllGenres())
+    
+    },[])
+
+    useEffect(()=>
+    {
+        document.title= "owo || " + "Add New!"  
+    },[])
 
     const [newGame,setNewGame]=useState({name:"",description:"",releaseDate:"",rating:0,platforms:[],genres:[]});
     const [addingPlat,setAddingPlat]=useState("");
@@ -59,16 +70,16 @@ export function CreateVG(props)
         }
         setErrors(rawErrors);
         if(flag){
-            setErrors([...errors,'Enviando a db!'])
+            setErrors(['Enviando a db!'])
             dispatch(addVideogames(newGame))
         }
     }
 
     function handleAddPlatform()
     {
-        if(!newGame.platforms.includes(addingPlat))
+        if(!newGame.platforms.includes(addingPlat.toUpperCase()))
         {
-            setNewGame({...newGame,platforms:[...newGame.platforms,addingPlat]})
+            setNewGame({...newGame,platforms:[...newGame.platforms,addingPlat.toUpperCase()]})
             setAddingPlat("");
         }
     }

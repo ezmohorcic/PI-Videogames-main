@@ -47,7 +47,7 @@ export function Videogames()
     }
     else if(videogames.number===NUMBER_000)
     {
-        arrVideogames=<p id='searchingMessage'>OH! UwU, we are Wowking VEWY HAWD seaWching uwu, pls b patient OnO</p>
+        arrVideogames=<p id='searchingMessage'>OH! UwU, we are LOADING... </p>
     }
     else if(videogames.number===NUMBER_404)
     {

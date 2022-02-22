@@ -12,6 +12,11 @@ import './ShowAll.css'
 
 export function ShowAll() //Solo se encarga de ?search= NADIE FUERA DE VIDEOGAMES MANDA PETICION GETVIDEOGAMES
 {
+    useEffect(()=>
+    {
+        document.title= "owo || " + "Show All!"  
+    },[])
+
     return(
         <div id='showAllContainer'>
             <div id="showAllCards">

@@ -12,7 +12,7 @@ export function Order(props)
 
     function handleOrder(e)
     {
-        //dispatch(setVideogamesPorBuscando()); //no se si dejarlo o no
+        dispatch(setVideogamesPorBuscando()); //no se si dejarlo o no
         dispatch(setPage(0));
         dispatch(setOrder({type:e.target.value}))
     }
@@ -20,7 +20,7 @@ export function Order(props)
     return(
         <div id="orderInnerCont">
             <h3 id='h3Filter'>ORDER!</h3>
-            <select id='filterSelect' value={""} onChange={(e)=>{handleOrder(e)}}>
+            <select id='filterSelect'  onChange={(e)=>{handleOrder(e)}}>
                 <option value="" > </option>
                 <option value="alfabetico">alfabetico A-Z</option>
                 <option value="invAlfabetico">alfabetico Z-A</option>
