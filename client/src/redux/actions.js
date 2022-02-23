@@ -1,4 +1,4 @@
-import { ALL_GENRES, ADD_GENRE, SHOW_VIDEOGAMES_PAGE, DETAIL_VIDEOGAME, CHANGE_ORDER, CHANGE_FILTER, CHANGE_FILT_ORD, NEW_PAGE, NEW_SEARCH, ADDED_ID, NEXT_PAGE, LAST_PAGE, NUMBER_404, NUMBER_200, SET_SEARCHING_000, SEARCHING_DETAILED, NUMBER_000, CHANGE_FILTER_GENRE, CHANGE_FILTER_DBOAPI, FILTER_RATINGS_MENOR } from "../consts";
+import { ALL_GENRES, ADD_GENRE, SHOW_VIDEOGAMES_PAGE, DETAIL_VIDEOGAME, CHANGE_ORDER, CHANGE_FILTER, CHANGE_FILT_ORD, NEW_PAGE, NEW_SEARCH, ADDED_ID, NEXT_PAGE, LAST_PAGE, NUMBER_404, NUMBER_200, SET_SEARCHING_000, SEARCHING_DETAILED, NUMBER_000, CHANGE_FILTER_GENRE, CHANGE_FILTER_DBOAPI, FILTER_RATINGS_MENOR, SOLO_AS } from "../consts";
 
 export function dummy (payload)
 {
@@ -51,6 +51,7 @@ export function getVideogames({query=null,page=null,filter=null,order=null})
             let json= await response.json();
             if(filter)
             { 
+                console.log("dentro de if filter")
                 if(filter.dbOapi=== "dbOapi")
                 //if(filter.type=== "dbOapi")
                 {
@@ -70,6 +71,11 @@ export function getVideogames({query=null,page=null,filter=null,order=null})
                     console.log("filtro rating menores a 2");
                     json= json.filter(vg=>vg.rating<=2);
                 }*/
+                if(filter.typeSoloA)
+                {
+                    console.log("filter typeSoloA")
+                    json = json.filter(vg=>vg.name[0].toLowerCase()=='a')
+                }
             }
             let number=NUMBER_404;
             console.log(json)
@@ -179,6 +185,11 @@ export function setFilterDbOApi(payload)
 export function setFilterRatingMenor(payload)
 {
     return{type:FILTER_RATINGS_MENOR,payload}
+}
+
+export function setSoloA(payload)
+{
+    return({type:SOLO_AS,payload})
 }
 
 //----Filters And Order----

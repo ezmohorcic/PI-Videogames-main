@@ -73,7 +73,7 @@ export function CreateVG()
 
     function handleAddPlatform()
     {
-        if(!newGame.platforms.includes(addingPlat.toUpperCase()))
+        if(!newGame.platforms.includes(addingPlat.toUpperCase()) && addingPlat!="")
         {
             setNewGame({...newGame,platforms:[...newGame.platforms,addingPlat.toUpperCase()]})
             setAddingPlat("");
@@ -100,7 +100,7 @@ export function CreateVG()
         
     }
 
-    const arrGenres= [<option className='genresOption' key={""}>{" "}</option>,...genres.map((element,index)=><option className='genresOption' key={"option_"+index}>{element.name}</option>)]
+    const arrGenres= [<option className='genresOption' key={""}>{""}</option>,...genres.map((element,index)=><option className='genresOption' key={"option_"+index}>{element.name}</option>)]
     const arrPlatforms=newGame.platforms.map((element,index)=><div key={"showPlat_"+index} className="PlatformShow"><p >{element}</p> <button value={element} onClick={(e)=>handleEliminatePlat(e)} className='eliminatePlatform'>X</button></div>)
     const arrGenre=newGame.genres.map((element,index)=><div key={"showGen_"+index} className="PlatformShow"><p>{element}</p><button value={element} onClick={(e)=>handleEliminateGenre(e)} className='eliminatePlatform'>X</button></div>)
     const arrErros= errors.map((element,index)=><p className='notesCreation' key={"showError_"+index}>{element}</p>)

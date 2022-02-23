@@ -24,7 +24,8 @@ export function Order(props)
                 <option value="" > </option>
                 <option value="alfabetico">alfabetico A-Z</option>
                 <option value="invAlfabetico">alfabetico Z-A</option>
-                <option value="rating">rating</option>
+                <option value="rating">rating 5-0</option>
+                <option value="ratingInv">rating 0-5</option>
             </select>
         </div>
     )

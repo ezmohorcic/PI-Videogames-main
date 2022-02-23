@@ -122,6 +122,11 @@ async function ALTERgetVideogames(name,page=0,filter,order)
                 console.log("ratingg")
                 outRaw.sort((a,b)=>b.rating-a.rating);
             break;
+
+            case 'ratingInv':
+                console.log("ratingInv");
+                outRaw.sort((a,b)=>a.rating-b.rating)
+            break;
         
             default:
             break;
