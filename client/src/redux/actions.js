@@ -78,10 +78,15 @@ export function getVideogames({query=null,page=null,filter=null,order=null})
                 }
             }
             let number=NUMBER_404;
+            let pageBounds=0;
             console.log(json)
             json.length==0? number=NUMBER_404 : number=NUMBER_200;
-            json=json.slice(page*15,(page+1)*15);
-            dispatch({type:SHOW_VIDEOGAMES_PAGE,payload:{videogames:json,number}});
+            const out=json.slice(page*15,(page+1)*15);
+            console.log(page,json.length,Math.trunc(json.length/15))
+            if(page==0){pageBounds=0}
+            else if(page>=Math.trunc(json.length/15)){pageBounds=2}
+            else{pageBounds=1}
+            dispatch({type:SHOW_VIDEOGAMES_PAGE,payload:{videogames:out,number,pageBounds}});
         }
         catch(e){console.log(e)}
     }

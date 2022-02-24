@@ -156,14 +156,14 @@ async function getVideogameByID(idVideogame)
 {
     if(idVideogame.length<20) //es de api
     {
-        const resp = await fetch(`https://api.rawg.io/api/games/${idVideogame}?key=${api_key}`); //fetcheo el id
+        /*const resp = await fetch(`https://api.rawg.io/api/games/${idVideogame}?key=${api_key}`); //fetcheo el id
         const raw=await resp.json(); //json...
 
-        let out={};
-        /*
-        const out = fetch("url de search")
-        .then(r=>rjson());
-        .finally(raw=>
+        let out={};*/
+        
+        /*return fetch(`https://api.rawg.io/api/games/${idVideogame}?key=${api_key}`)
+        .then(r=>r.json())
+        .then(raw=>
         {
             let out={};
             out.id=raw.id;
@@ -174,9 +174,9 @@ async function getVideogameByID(idVideogame)
             raw.released? out.releaseDate=raw.released : out.releaseDate=raw.releaseDate;
             if(raw.genres)out.genres=raw.genres.map(element=>element.name).join(',')
             raw.background_image? out.background_image=raw.background_image : out.background_image="./alt_img_joystick.jpg";
+            //console.log("linea 177",out)
             return out;
-        });
-        */
+        });;*/
         
         if(raw.hasOwnProperty("id"))
         {
@@ -190,12 +190,12 @@ async function getVideogameByID(idVideogame)
             if(raw.genres)out.genres=raw.genres.map(element=>element.name).join(',')
             raw.background_image? out.background_image=raw.background_image : out.background_image="./alt_img_joystick.jpg";
         }
-        return out; 
+        return out;
     }
     else    //es de database, agregado a mano
     {
         /*
-        const videogame = Videogame.findOne({where:{id:videogame},include:{model:Genre}})
+        return Videogame.findOne({where:{id:idVideogame},include:{model:Genre}})
         .then(videogame=>
         {
             videogame.dataValues.background_image="/alt_img_joystick.jpg"
@@ -227,21 +227,26 @@ async function getVideogameByID(idVideogame)
 
 async function getGenres()
 {
-    /*
-    let genres =  Genres.findAll()
-    .then(r=>r)
-    .catch(function()
-    {
-        const raw = fetch("genres");
-        .then(r=>r.json());
-        .then(r=>{
-            r.forEach(g=>{
-                   Genre.findOrCreate({where:{id:g.id, name:g.name});
-               });
+    
+    /*return  Genre.findAll()
+    .then(e=>{
+        console.log("linea 233",e)
+        if(e.length){return e}
+        let rawInner=[];
+        const raw = fetch(`https://api.rawg.io/api/genres?key=${api_key}`)
+        .then(r=>r.json())
+        .then(r=>
+        { 
+            console.log(r.results[0])
+            rawInner = r.results.map(g=>
+            {
+               return Genre.findOrCreate({where:{id:g.id, name:g.name}})
             });
-        });
-    });
-    */
+        })
+        Promise.all(rawInner);
+        return raw.results;
+    })*/
+    
 
     try
     {
@@ -267,6 +272,7 @@ async function getGenres()
         return genres;
     }
     catch(e){()=>console.log("fuego en getGenres")}
+    
 }
 
 async function AddVideogame(name,description,releaseDate,rating,platforms,genres)
@@ -321,14 +327,20 @@ router.get('/videogames',async function(req,res)
 
 router.get('/videogames/:idVideogame',async function(req,res)
 {
-    try
+   /* try
     {
         let videogame=await getVideogameByID(req.params.idVideogame)
         console.log(videogame)
         res.json(videogame);
         //return res.json(await getVideogamesByID(req.params.idVideogame));
     }
-    catch(e){console.log(e);}
+    catch(e){console.log(e);}*/
+
+    getVideogameByID(req.params.idVideogame)
+    .then(e=>
+        {   console.log("linea342",e)
+            res.json(e)})
+    .catch(e=>console.log(e))
 
 });
 
@@ -340,6 +352,12 @@ router.get('/genres',async function(req,res)
         res.json(genres);
     }
     catch(e){console.log(e)}
+
+    /*getGenres()
+    .then(e=>
+        {   console.log(e)
+            res.json(e)})
+    .catch(e=>console.log(e))*/
 });
 
 router.post('/videogame',async function(req,res)
