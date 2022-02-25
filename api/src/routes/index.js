@@ -16,6 +16,11 @@ async function ALTERgetVideogames(name,page=0,filter,order)
     let dbRaw = await Videogame.findAll({include:Genre}); //busco los juegos en db
     /* 
     let dbRaw =Videogame.findAll({include:Genre})
+    .then(dbRaw=>
+    {
+        if(name){if(dbRaw)dbRaw=dbRaw.filter(vdg => vdg.name.toLowerCase().includes(name.toLowerCase()));}
+        return dbRaw;
+    })
     */
     
     if(name){if(dbRaw)dbRaw=dbRaw.filter(vdg => vdg.name.toLowerCase().includes(name.toLowerCase()));}//filtro por nombre en base de datos}
@@ -28,13 +33,33 @@ async function ALTERgetVideogames(name,page=0,filter,order)
         if(name){ temp = await fetch(`https://api.rawg.io/api/games?search=${name}&key=${api_key}&page=${i}`);} //si hay que filtrar por nombre
         else {temp= await fetch(`https://api.rawg.io/api/games?key=${api_key}&page=${i}`);}   //si no hay que filtrar por nombre
         temp = await temp.json();
-        /*
-        if(name){temp = fetch("url con search").then(r=>r.json());}
-        else{{temp = fetch("url sin search").then(r=>r.json());}
-        */
+        
         temp=temp.results;
         if(!temp){temp=[];}
         apiRaw=[...apiRaw,...temp];
+
+       /* if(name)
+        {
+            fetch(`https://api.rawg.io/api/games?search=${name}&key=${api_key}&page=${i}`)
+            .then(r=>r.json())
+            .then(r=>
+            {
+                const results=r.results;
+                if(!results){temp=[];}
+                apiRaw=[...apiRaw,...results]
+            })
+        }
+        else
+        {
+            fetch(`https://api.rawg.io/api/games?key=${api_key}&page=${i}`)
+            .then(r=>r.json())
+            .then(r=>
+            {
+                const results=r.results;
+                if(!results){temp=[];}
+                apiRaw=[...apiRaw,...results]
+            })
+        }*/
     }
     console.log("despues del for")
     //--code con order/filtro
@@ -156,10 +181,10 @@ async function getVideogameByID(idVideogame)
 {
     if(idVideogame.length<20) //es de api
     {
-        /*const resp = await fetch(`https://api.rawg.io/api/games/${idVideogame}?key=${api_key}`); //fetcheo el id
+        const resp = await fetch(`https://api.rawg.io/api/games/${idVideogame}?key=${api_key}`); //fetcheo el id
         const raw=await resp.json(); //json...
 
-        let out={};*/
+        let out={};
         
         /*return fetch(`https://api.rawg.io/api/games/${idVideogame}?key=${api_key}`)
         .then(r=>r.json())
@@ -228,25 +253,29 @@ async function getVideogameByID(idVideogame)
 async function getGenres()
 {
     
-    /*return  Genre.findAll()
-    .then(e=>{
-        console.log("linea 233",e)
-        if(e.length){return e}
-        let rawInner=[];
-        const raw = fetch(`https://api.rawg.io/api/genres?key=${api_key}`)
-        .then(r=>r.json())
-        .then(r=>
-        { 
-            console.log(r.results[0])
-            rawInner = r.results.map(g=>
-            {
-               return Genre.findOrCreate({where:{id:g.id, name:g.name}})
-            });
-        })
-        Promise.all(rawInner);
-        return raw.results;
+    /*return Genre.findAll()
+    .then(r=>
+    {
+        console.log("linea 257",r.length)
+        if(r.length){return r}
+        else
+        {
+            return fetch(`https://api.rawg.io/api/genres?key=${api_key}`)
+            .then(r=>r.json())
+            .then(res=>
+            { 
+                console.log("linea 264")
+                rawInner = res.results.map(g=>
+                {
+                   return Genre.findOrCreate({where:{id:g.id, name:g.name}})
+                });
+                return res.results;
+            })
+            
+        }
     })*/
-    
+
+
 
     try
     {
@@ -277,6 +306,28 @@ async function getGenres()
 
 async function AddVideogame(name,description,releaseDate,rating,platforms,genres)
 {
+
+    /*platforms=platforms.join(',') //hago el join, asi lo subo como un string de platforms
+    return Videogame.findOrCreate( //si no existe, lo crea
+    {
+        where:
+        {
+            name,
+            description,
+            releaseDate,
+            rating,
+            platforms,
+        }
+    })
+    .then(gamesAdded=>
+    {
+        gamesAdded[0].setGenres(genres)
+        console.log("linea296")
+        return gamesAdded[0]
+    })*/
+    
+
+
     platforms=platforms.join(',') //hago el join, asi lo subo como un string de platforms
     try
     {
