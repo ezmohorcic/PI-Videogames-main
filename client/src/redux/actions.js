@@ -26,6 +26,30 @@ export function addGenre(payload)
     return ({type:ADD_GENRE,payload})
 }
 
+// export function newGenre(payload)
+// {
+//     return async function(dispatch)
+//     {
+//         try
+//         {
+//             console.log("dentro de try")
+//             const response = await fetch("http://localhost:3001/genres",
+//             {
+//                 method: "POST",
+//                 body: JSON.stringify({genre:payload}),
+//                 headers: {
+//                   "Content-type": "application/json; charset=UTF-8",
+//                 },
+//             })
+//             console.log("linea 45",response)
+//             const json= await response.json();
+//             console.log("linea 45",json)
+//             dispatch({type:ALL_GENRES,payload:json})
+//         }
+//         catch(e){console.log(e)}
+//     }
+// }
+
 //----genres----
 
 //vamos mari, vos podes, te queda tan poco, y pasaste tanto, ya casi lo tenes hecho, es increible lo que podes lograr con tiempo y dedicacion 
@@ -127,6 +151,30 @@ export function getVideogameById(id)
 export function detailedSearching()
 {
     return {type:SEARCHING_DETAILED, payload:{videogame:{},number:NUMBER_000}}
+}
+
+export function killVideogameDB(idToKill)
+{
+    return async function(dispatch)
+    {
+        try
+        {
+            const response = await fetch("http://localhost:3001/videogame",
+            {
+                method: "DELETE",
+                body: JSON.stringify({id:idToKill}),
+                headers: {
+                  "Content-type": "application/json; charset=UTF-8",
+                },
+            });
+            const json= await response.json();
+            console.log(json);
+            if(json=="Doneso")dispatch({type:"KILLED_ID",payload:NUMBER_404})
+            else dispatch({type:"KILLED_ID",payload:"NUMBER_F"})
+            
+        }
+        catch(e){console.log(e)}
+    }
 }
 
 //----Detailed Videogames----

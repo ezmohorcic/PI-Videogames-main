@@ -66,9 +66,8 @@ export function PageButtons()
             <div><button onClick={(e)=>handleMiddlePage(e,(page-1))}>{page-1}</button></div> 
             <div><button >{page}</button></div> 
         </div>
-    }
-    */
-
+    }*/
+    
     const dispatch=useDispatch()
     return(
         <div id='pageButsContainer'>

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from 'react-router-dom';
 import { NUMBER_200, NUMBER_404 } from '../../consts';
-import { getVideogameById } from '../../redux/actions';
+import { getVideogameById, killVideogameDB } from '../../redux/actions';
 
 import './DetailVG.css'
 
@@ -22,6 +22,11 @@ export function DetailVG()
     let platforms=[];
     let genres=[];
     //let img='';
+
+    function handleKill()
+    {
+        dispatch(killVideogameDB(searchparams.pathname.split('/')[2]))
+    }
     
     console.log(details)
 
@@ -47,6 +52,7 @@ export function DetailVG()
                 <div id='shellMiddlesDetailed'><p className='detailedPlatGenre'>{details.videogame.rating}</p></div>
                 <h2>Release Date:</h2>
                 <div id='shellMiddlesDetailed'><p className='detailedPlatGenre'>{details.videogame.releaseDate}</p></div>
+                <button onClick={()=>handleKill()}>owo kill</button>
             </div>
         )
     }

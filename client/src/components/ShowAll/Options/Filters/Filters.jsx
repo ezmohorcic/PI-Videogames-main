@@ -61,6 +61,7 @@ export function Filters() //Solo se encarga de
         setTypeFilter(['','']);
         dispatch(setFilter({}));
         setValueFilter(['',''])
+        document.getElementById("filterSelect").value="";
     }
 
     function handleSoloA(e)
@@ -79,7 +80,7 @@ export function Filters() //Solo se encarga de
                     <button onClick={(e)=>{handleRatingMenor(e)}}>rating menor 2</button>
                 </div>
                 <div></div>  */}
-                <button onClick={(e)=>{handleSoloA(e)}}> Filter Solo A </button>
+                {/*<button onClick={(e)=>{handleSoloA(e)}}> Filter Solo A </button>*/}
 
                 <div className="filterShell"><label htmlFor="" className='filterLabel'>DB o Api</label><input type="radio" className='filterTypeRadio'  name="tipoFiltro" id={FILTER_TYPE_DBOAPI} onChange={(e)=>setTypeFilter([FILTER_TYPE_DBOAPI,typeFilter[1]])} /></div>
                 <div id="filterDropDownShell">{dropDownFilterDbOApi}</div>

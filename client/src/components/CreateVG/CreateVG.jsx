@@ -37,7 +37,7 @@ export function CreateVG()
         console.log("handling send")
         let flag=true;
         let rawErrors=[]
-        if(/([#$%^&*{}])/.test(newGame.name) || newGame.name==="")
+        if(/([^a-zA-Z0-9 ])/.test(newGame.name) || newGame.name==="")
         {
             flag=false;
             rawErrors=[...rawErrors,'Error en name']

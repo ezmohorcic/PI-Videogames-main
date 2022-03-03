@@ -9,6 +9,8 @@ const { Videogame,Genre } = require('../db.js');
 
 const router = Router();
 
+let newsGenresNumberId=1000;
+
 async function ALTERgetVideogames(name,page=0,filter,order)
 {
     //--me traigo todo de la db y api--
@@ -418,5 +420,48 @@ router.post('/videogame',async function(req,res)
     let newVideogame= await AddVideogame(name,description,releaseDate,rating,platforms,genres);
     res.json(newVideogame); //devuelvo el creado;
 });
+
+async function killingIDVideogame(id)
+{
+    try
+    {
+        const elem = await Videogame.destroy({
+            where: {id: id}
+         });
+         return "Doneso";
+    }
+    catch(e){return "unu"}
+
+    
+}
+
+router.delete('/videogame',async function(req,res)
+{
+    try
+    {
+        let videogame=await killingIDVideogame(req.body.id)
+        console.log("despues de que deleteo",videogame)
+        res.json(videogame);
+        //return res.json(await getVideogamesByID(req.params.idVideogame));
+    }
+    catch(e){console.log(e);}
+
+});
+
+/*async function addingNewGenre(newGenre)
+{
+    newsGenresNumberId++;
+    await Genre.findOrCreate({where:{name:newGenre,id:newsGenresNumberId}})
+    const allGenres= await Genre.findAll();
+    return allGenres;
+}*/
+
+/*router.post('/genres',async function(req,res)
+{
+    console.log(req.body.genre)
+    const newGenre=req.body.genre;
+    let all = await addingNewGenre(newGenre)
+    res.json(all);
+});*/
 
 module.exports = router;

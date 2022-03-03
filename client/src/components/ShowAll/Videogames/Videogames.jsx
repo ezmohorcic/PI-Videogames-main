@@ -28,6 +28,7 @@ export function Videogames()
             console.log(searchparams.search.split("=")[1])
         }
         dispatch(getVideogames({query:searchparams.search.split("=")[1],page,...filterAndOrder}))
+
     },[search,filterAndOrder,page])
     
     let arrVideogames='';
