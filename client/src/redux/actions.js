@@ -1,9 +1,4 @@
-import { ALL_GENRES, ADD_GENRE, SHOW_VIDEOGAMES_PAGE, DETAIL_VIDEOGAME, CHANGE_ORDER, CHANGE_FILTER, CHANGE_FILT_ORD, NEW_PAGE, NEW_SEARCH, ADDED_ID, NEXT_PAGE, LAST_PAGE, NUMBER_404, NUMBER_200, SET_SEARCHING_000, SEARCHING_DETAILED, NUMBER_000, CHANGE_FILTER_GENRE, CHANGE_FILTER_DBOAPI, FILTER_RATINGS_MENOR, SOLO_AS } from "../consts";
-
-export function dummy (payload)
-{
-    return({type:"DUMMY",payload})
-}
+import { ALL_GENRES, ADD_GENRE, SHOW_VIDEOGAMES_PAGE, DETAIL_VIDEOGAME, CHANGE_ORDER, CHANGE_FILTER, CHANGE_FILT_ORD, NEW_PAGE, NEW_SEARCH, ADDED_ID, NEXT_PAGE, LAST_PAGE, NUMBER_404, NUMBER_200, SET_SEARCHING_000, SEARCHING_DETAILED, NUMBER_000, CHANGE_FILTER_GENRE, CHANGE_FILTER_DBOAPI} from "../consts";
 
 //----genres----
 
@@ -58,6 +53,7 @@ export function addGenre(payload)
 export function getVideogames({query=null,page=null,filter=null,order=null})
 {
     console.log(filter)
+    console.log(order)
     return async function(dispatch)
     {
         try
@@ -75,39 +71,21 @@ export function getVideogames({query=null,page=null,filter=null,order=null})
             let json= await response.json();
             if(filter)
             { 
-                console.log("dentro de if filter")
                 if(filter.dbOapi=== "dbOapi")
-                //if(filter.type=== "dbOapi")
                 {
-                    console.log("filtro en dbOapi")
                     if(filter.dbOapiPayload==="db"){
-                    //if(filter.payload==="db"){
                         console.log("filtro en db")
                         json=json.filter(vg=> typeof vg.id == "string")}
                     else if(filter.dbOapiPayload==="api"){
-                    //else if(filter.payload==="api"){
-                        console.log("filtro en api")
                         json=json.filter(vg=> typeof vg.id == "number")}
-                    //json=json.slice(page*15,(page+1)*15);
-                }
-                /*if(filter.filterMenor)
-                {
-                    console.log("filtro rating menores a 2");
-                    json= json.filter(vg=>vg.rating<=2);
-                }*/
-                if(filter.typeSoloA)
-                {
-                    console.log("filter typeSoloA")
-                    json = json.filter(vg=>vg.name[0].toLowerCase()=='a')
                 }
             }
             let number=NUMBER_404;
             let pageBounds=0;
             console.log(json)
-            json.length==0? number=NUMBER_404 : number=NUMBER_200;
+            json.length===0? number=NUMBER_404 : number=NUMBER_200;
             const out=json.slice(page*15,(page+1)*15);
-            console.log(page,json.length,Math.trunc(json.length/15))
-            if(page==0){pageBounds=0}
+            if(page===0){pageBounds=0}
             else if(page>=Math.trunc(json.length/15)){pageBounds=2}
             else{pageBounds=1}
             dispatch({type:SHOW_VIDEOGAMES_PAGE,payload:{videogames:out,number,pageBounds}});
@@ -151,30 +129,6 @@ export function getVideogameById(id)
 export function detailedSearching()
 {
     return {type:SEARCHING_DETAILED, payload:{videogame:{},number:NUMBER_000}}
-}
-
-export function killVideogameDB(idToKill)
-{
-    return async function(dispatch)
-    {
-        try
-        {
-            const response = await fetch("http://localhost:3001/videogame",
-            {
-                method: "DELETE",
-                body: JSON.stringify({id:idToKill}),
-                headers: {
-                  "Content-type": "application/json; charset=UTF-8",
-                },
-            });
-            const json= await response.json();
-            console.log(json);
-            if(json=="Doneso")dispatch({type:"KILLED_ID",payload:NUMBER_404})
-            else dispatch({type:"KILLED_ID",payload:"NUMBER_F"})
-            
-        }
-        catch(e){console.log(e)}
-    }
 }
 
 //----Detailed Videogames----
@@ -235,15 +189,6 @@ export function setFilterDbOApi(payload)
  return{type:CHANGE_FILTER_DBOAPI,payload}
 }
 
-export function setFilterRatingMenor(payload)
-{
-    return{type:FILTER_RATINGS_MENOR,payload}
-}
-
-export function setSoloA(payload)
-{
-    return({type:SOLO_AS,payload})
-}
 
 //----Filters And Order----
 

@@ -13,7 +13,6 @@ import { ShowGenres } from './components/ShowGenres/ShowGenres';
 import './App.css';
 
 function App() {
-  const dummy="xd"
   return (
     <div className="App">
       {/* <h1>Henry Videogames</h1> */}

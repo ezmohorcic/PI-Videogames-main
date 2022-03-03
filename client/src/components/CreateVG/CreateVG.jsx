@@ -17,14 +17,9 @@ export function CreateVG()
     
     useEffect(()=>
     {
-        document.title= 
         dispatch(getAllGenres())
+        document.title= "owo || Add New!"; 
     
-    },[])
-
-    useEffect(()=>
-    {
-        document.title= "owo || " + "Add New!"  
     },[])
 
     const [newGame,setNewGame]=useState({name:"",description:"",releaseDate:"",rating:0,platforms:[],genres:[]});
@@ -34,7 +29,6 @@ export function CreateVG()
 
     function handleSend()
     {
-        console.log("handling send")
         let flag=true;
         let rawErrors=[]
         if(/([^a-zA-Z0-9 ])/.test(newGame.name) || newGame.name==="")
@@ -64,7 +58,7 @@ export function CreateVG()
             
         }
         setErrors(rawErrors);
-        console.log(rawErrors);
+
         if(flag){
             setErrors(['Enviando a db!'])
             dispatch(addVideogames(newGame))
@@ -73,7 +67,7 @@ export function CreateVG()
 
     function handleAddPlatform()
     {
-        if(!newGame.platforms.includes(addingPlat.toUpperCase()) && addingPlat!="")
+        if(!newGame.platforms.includes(addingPlat.toUpperCase()) && addingPlat!=="")
         {
             setNewGame({...newGame,platforms:[...newGame.platforms,addingPlat.toUpperCase()]})
             setAddingPlat("");
@@ -82,7 +76,7 @@ export function CreateVG()
 
     function handleAddGenres()
     {
-        if(!newGame.genres.includes(addingGen) && addingGen!="")
+        if(!newGame.genres.includes(addingGen) && addingGen!=="")
         {
             setNewGame({...newGame,genres:[...newGame.genres,addingGen]})
             setAddingPlat("");
@@ -91,12 +85,12 @@ export function CreateVG()
 
     function handleEliminatePlat(e)
     {
-        setNewGame({...newGame,platforms:[...newGame.platforms.filter(plat=>plat!=e.target.value)]})
+        setNewGame({...newGame,platforms:[...newGame.platforms.filter(plat=>plat!==e.target.value)]})
     }
 
     function handleEliminateGenre(e)
     {
-        setNewGame({...newGame,genres:[...newGame.genres.filter(genre=>genre!=e.target.value)]})
+        setNewGame({...newGame,genres:[...newGame.genres.filter(genre=>genre!==e.target.value)]})
         
     }
 

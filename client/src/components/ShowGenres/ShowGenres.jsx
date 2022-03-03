@@ -1,22 +1,19 @@
 import React from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import { getAllGenres, newGenre, setFilter, setVideogamesPorBuscando } from '../../redux/actions';
+import { getAllGenres, setFilter, setVideogamesPorBuscando } from '../../redux/actions';
 import { Link } from 'react-router-dom';
 
 import './ShowGenres.css'
-import { useState } from 'react';
 
 export function ShowGenres()
 {
     const genres = useSelector((state)=>state.genres);
     const dispatch=useDispatch();
 
-    const [input,setInput]=useState("");
-
     useEffect(()=>
     {
-        document.title= "owo || " + "Show Genres!"  
+        document.title= "owo || Show Genres!"  
         if(genres.length===0){dispatch(getAllGenres())}
     },[])
 

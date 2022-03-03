@@ -1,11 +1,8 @@
 import React, {useEffect} from 'react';
-import {useDispatch} from "react-redux";
 
 import { Order } from './Options/Order/Order.jsx';
 import {Filters} from './Options/Filters/Filters.jsx'
 import { Videogames } from './Videogames/Videogames.jsx';
-import { useLocation } from 'react-router-dom';
-import { setSearch } from '../../redux/actions.js';
 import { PageButtons } from './PageButtons/PageButtons.jsx';
 
 import './ShowAll.css'
@@ -14,7 +11,7 @@ export function ShowAll() //Solo se encarga de ?search= NADIE FUERA DE VIDEOGAME
 {
     useEffect(()=>
     {
-        document.title= "owo || " + "Show All!"  
+        document.title= "owo || Show All!"  
     },[])
 
     return(

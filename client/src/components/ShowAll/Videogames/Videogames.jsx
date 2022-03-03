@@ -18,14 +18,14 @@ export function Videogames()
     const page = useSelector((state)=>state.page);
 
     const searchparams=useLocation();
+
+    console.log(filterAndOrder,page,search)
     
     useEffect(()=>
     {
         if(searchparams.search)
         {   
-            //param= searchparams.search.split("=")[1];
             dispatch(setSearch(searchparams.search.split("=")[1]));
-            console.log(searchparams.search.split("=")[1])
         }
         dispatch(getVideogames({query:searchparams.search.split("=")[1],page,...filterAndOrder}))
 

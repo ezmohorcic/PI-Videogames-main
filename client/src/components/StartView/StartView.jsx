@@ -10,7 +10,7 @@ export function StartView()
 {
     useEffect(()=>
     {
-        document.title= "owo || " + "Starting View!"  
+        document.title= "owo || Starting View!"  
     },[])
 
     const dispatch=useDispatch();

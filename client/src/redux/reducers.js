@@ -1,11 +1,6 @@
 import { combineReducers } from "redux";
-import  {SEARCHING_DETAILED, ALL_GENRES, ADD_GENRE, SHOW_VIDEOGAMES_PAGE, DETAIL_VIDEOGAME, CHANGE_FILT_ORD, CHANGE_FILTER, CHANGE_ORDER, NEW_PAGE, NEW_SEARCH, ADDED_ID, LAST_PAGE, NEXT_PAGE, NUMBER_000, SET_SEARCHING_000, CHANGE_FILTER_GENRE, CHANGE_FILTER_DBOAPI, FILTER_RATINGS_MENOR, SOLO_AS, NUMBER_404 } from "../consts.js";
+import  {SEARCHING_DETAILED, ALL_GENRES, ADD_GENRE, SHOW_VIDEOGAMES_PAGE, DETAIL_VIDEOGAME, CHANGE_FILT_ORD, CHANGE_FILTER, CHANGE_ORDER, NEW_PAGE, NEW_SEARCH, ADDED_ID, LAST_PAGE, NEXT_PAGE, NUMBER_000, SET_SEARCHING_000, CHANGE_FILTER_GENRE, CHANGE_FILTER_DBOAPI} from "../consts.js";
 
-function dummy(state={},action)
-{
-    if(action.type==="DUMMY"){return action.payload;}
-    else return state
-}
 
 function genres(state=[],action)
 {
@@ -26,7 +21,7 @@ function videogames (state={videogames:[],number:NUMBER_000},action)
     }
     else return state;
 }
-//owo{a:1,b:2} ono={a:4}
+
 function detailVideogames (state={videogame:{},number:NUMBER_000},action)
 {
     if(action.type===DETAIL_VIDEOGAME)
@@ -36,10 +31,6 @@ function detailVideogames (state={videogame:{},number:NUMBER_000},action)
     else if(action.type===SEARCHING_DETAILED)
     {
         return action.payload;
-    }
-    else if(action.type==="KILLED_ID")
-    {
-        return {videogame:{},number:action.payload};
     }
     else return state;
 }
@@ -51,8 +42,6 @@ function filterAndOrder(state={},action)
     else if(action.type===CHANGE_FILTER_GENRE){return {...state,order:{},filter:{...state.filter,payload:action.payload.payload,type:action.payload.type}};} 
     else if(action.type===CHANGE_FILTER_DBOAPI){return {...state,order:{},filter:{...state.filter,dbOapiPayload:action.payload.payload,dbOapi:action.payload.type}};} 
     else if(action.type===CHANGE_ORDER){return {...state,order:action.payload};}
-    /*else if(action.type===FILTER_RATINGS_MENOR)return{...state,order:{},filter:{filterMenor:true}}*/
-    /*else if(action.type===SOLO_AS)return {...state,order:{},filter:{typeSoloA:true}}*/
     else return state;
 }
 
@@ -80,7 +69,6 @@ function addedvideogame(state="",action)
 
 const rootReducer=combineReducers(
 {
-    dummy,
     genres,
     videogames,
     detailVideogames,

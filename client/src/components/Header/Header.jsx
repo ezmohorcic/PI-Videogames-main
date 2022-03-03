@@ -42,7 +42,7 @@ export function Header()
 
     return(
         <div id='headerContainer'>
-            <div id="headerImgShell"><Link to={"/showAll"} id="linkLogoShell" onClick={()=>headerImgClick()}><img id='headerLogoShell' src="/kisspng_joystick.png"/></Link></div>
+            <div id="headerImgShell"><Link to={"/showAll"} id="linkLogoShell" onClick={()=>headerImgClick()}><img id='headerLogoShell' src="/kisspng_joystick.png" alt="F :c"/></Link></div>
             <div id="inputHeaderShell">
                 <div id="searchTextContainer">
                     <input type="text" name="searchText" id="searchText" value={innersearch} placeholder={"Busqueda"} onChange={(e)=>setInnerSearch(e.target.value)}/>
