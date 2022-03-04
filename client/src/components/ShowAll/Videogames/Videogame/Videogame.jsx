@@ -15,7 +15,7 @@ export function Videogame(props)
     });
     return(
         <div className='videogameContainer' >
-            <Link to={"/videogame/"+props.id} className="linkCardVG" onClick={dispatch(detailedSearching())}>
+            <Link to={"/videogame/"+props.id} className="linkCardVG" onClick={()=>dispatch(detailedSearching())}>
                 <h3 className="cardName">{props.name}</h3>
                 <div className='imgHolderCardVG'><img className='imgCardVG' src={props.img} alt='./alt_img_joystick.jpg' /></div>
                 <div className="genresCardShell">{arrGenres}</div>

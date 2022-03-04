@@ -21,6 +21,8 @@ export function Videogames()
 
     console.log(filterAndOrder,page,search)
     
+    useEffect(()=>{})
+
     useEffect(()=>
     {
         if(searchparams.search)
